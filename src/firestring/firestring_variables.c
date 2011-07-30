@@ -2,9 +2,6 @@
 
 void firestring_int_errorhandler();
 
-const char tagstring[] = "$Id: firestring.c,v 1.107 2004/03/09 14:47:53 ian Exp $";
-
-
 void (*error_handler)() = firestring_int_errorhandler;
 
 const char base64_encode_table[] = {
