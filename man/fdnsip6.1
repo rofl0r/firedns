@@ -1,0 +1,16 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsip6 1 2004-02-12
+.SH NAME
+fdnsip6 \- resolve a hostname to an IPv6 address
+.SH SYNOPSIS
+.BI "fdnsip6 " <hostname>
+.SH DESCRIPTION
+fdnsip6 will attempt to look up a single IPv6 address for
+.IR hostname .
+If one is found, it is printed to standard output and the program exits
+with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

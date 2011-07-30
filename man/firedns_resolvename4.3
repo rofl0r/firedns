@@ -1,0 +1,28 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvename4 3 2002-03-31
+.SH NAME
+firedns_resolvename4 \- Resolve a hostname from an IPv4 address
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_resolvename4(const struct in_addr * " "ip" ")"
+.br
+.BI "char *firedns_resolvename4_r(const struct in_addr * " "ip" ")"
+.SH DESCRIPTION
+firedns_resolvename4() attempts to resolve the hostname of
+the IPv4 address
+.IR ip .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.I char *
+that contains a hostname of
+.IR ip ,
+or
+.I NULL
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

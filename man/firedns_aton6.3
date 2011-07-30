@@ -1,0 +1,32 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_aton6 3 2002-03-31
+.SH NAME
+firedns_aton6 \- convert a colon seperated IPv6 address to binary format
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct in6_addr *firedns_aton6(const char * const " "ipstring" ")"
+.br
+.BI "struct in6_addr *firedns_aton6_r(const char * const " "ipstring" ")"
+.br
+.BI "struct in6_addr *firedns_aton6_s(const char * const " "ipstring" ", struct in6_addr *" "ip" ")"
+.SH DESCRIPTION
+firedns_aton6() takes an IPv6 address in colon seperated notation in
+.I ipstring
+and returns a
+.I struct in6_addr
+containing the address in binary format.
+.SH RETURN VALUE
+Returns a
+.I struct in6_addr
+containing the IP address in binary form, or
+.I NULL
+if
+.I ipstring
+is not a valid IP.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

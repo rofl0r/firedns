@@ -1,0 +1,16 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsip6list 1 2004-02-12
+.SH NAME
+fdnsip6list \- resolve a hostname to a list of IPv6 addresses
+.SH SYNOPSIS
+.BI "fdnsip6list " <hostname>
+.SH DESCRIPTION
+fdnsip6list will attempt to look up a list of IPv6 addresses for
+.IR hostname .
+If any are found, they are printed to standard output seperated by newlines and the program exits
+with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

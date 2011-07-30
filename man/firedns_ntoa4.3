@@ -1,0 +1,26 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_ntoa4 3 2002-03-31
+.SH NAME
+firedns_ntoa4 \- convert a binary format IPv4 address to a dotted quad string
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_ntoa4(const struct in_addr *" "ip" ")"
+.br
+.BI "char *firedns_ntoa4_r(const struct in_addr *" "ip" ")"
+.br
+.BI "char *firedns_ntoa4_s(const struct in_addr *" "ip" ", char *" "result" ")"
+.SH DESCRIPTION
+firedns_ntoa4() takes an IPv4 address in binary format in
+.I ip
+and returns a
+.I char *
+of the IP in human-readable dotted quad format.
+.SH RETURN VALUE
+Returns a string containing the IP address in human-readable dotted quad format.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

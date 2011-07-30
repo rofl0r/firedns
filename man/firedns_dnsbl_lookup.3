@@ -1,0 +1,37 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_dnsbl_lookup 3 2002-03-31
+.SH NAME
+firedns_dnsbl_lookup \- Create a query to look up an IP in a DNS-based blacklist
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "int firedns_dnsbl_lookup(const struct in_addr *" "ip" ", const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_dnsbl_lookup() creates and sends a request to resolve
+the TXT record of the entry of
+.I ip
+in the DNS-based blacklist
+.IR name .
+It returns a file descriptor that should be
+.IR select (2)'ed
+upon (read set).  When the file descriptor shows ready
+for reading call
+.IR firedns_getresult (3)
+to retrieve the results.  The result will be a
+.B char *
+with the message from the listing server, or
+.B NULL
+if the IP address is not listed.
+.SH RETURN VALUE
+Returns an integer file descriptor that can be used the
+same as any other file descriptor.  Returns
+.I -1
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3),
+.BR firedns_getresult (3),
+.BR select (2)

@@ -1,0 +1,32 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_aton4 3 2002-03-31
+.SH NAME
+firedns_aton4 \- convert a dotted quad IPv4 address to binary format
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct in_addr *firedns_aton4(const char * const " "ipstring" ")"
+.br
+.BI "struct in_addr *firedns_aton4_r(const char * const " "ipstring" ")"
+.br
+.BI "struct in_addr *firedns_aton4_s(const char * const " "ipstring" ", struct in_addr *" "ip" ")"
+.SH DESCRIPTION
+firedns_aton4() takes an IPv4 address in dotted quad notation in
+.I ipstring
+and returns a
+.I struct in_addr
+containing the address in binary format.
+.SH RETURN VALUE
+Returns a
+.I struct in_addr
+containing the IP address in binary form, or
+.I NULL
+if
+.I ipstring
+is not a valid IP.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

@@ -1,0 +1,19 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_free_mxalist 3 2004-02-12
+.SH NAME
+firedns_free_mxalist \- Free a previously returned MX/A list structure
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "void firedns_free_mxalist(struct firedns_mxalist *" "list" ")"
+.SH DESCRIPTION
+firedns_free_mxalist() frees all memory previously allocated by a call to
+.IR firedns_resolvemxalist (3).
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)
+.br
+.BR firedns_resolvemxalist (3)

@@ -1,0 +1,31 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_getip4 3 2002-03-31
+.SH NAME
+firedns_getip4 \- Create a query to resolve a hostname to an IPv4 address
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "int firedns_getip4(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_getip4() creates and sends a request to resolve
+.I name
+to an IPv4 address.  It returns a file descriptor that
+should be
+.IR select (2)'ed
+upon (read set).  When the file descriptor shows ready
+for reading, call
+.IR firedns_getresult (3)
+to retrieve the results.
+.SH RETURN VALUE
+Returns an integer file descriptor that can be used the
+same as any other file descriptor.  Returns
+.I -1
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3),
+.BR firedns_getresult (3),
+.BR select (2)

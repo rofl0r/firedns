@@ -1,0 +1,19 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsspf1 1 2004-02-12
+.SH NAME
+fdnsspf1 \- resolve an SPF version 1 record of a hostname
+.SH SYNOPSIS
+.BI "fdnsspf1 " <hostname>
+.SH DESCRIPTION
+fdnsspf1 will attempt to look up an SPF version 1 record for
+.IR hostname .
+If one is found, it is printed to standard output and the program exits
+with return code 0.  If more than one is found (a violation of the specification), none is found, or the
+DNS query fails, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)
+.br
+http://spf.pobox.com/

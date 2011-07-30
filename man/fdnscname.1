@@ -1,0 +1,16 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnscname 1 2004-02-12
+.SH NAME
+fdnscname \- resolve the canonical name of a host
+.SH SYNOPSIS
+.BI "fdnscname " "<hostname>"
+.SH DESCRIPTION
+fdnsname will attempt to look up the canonical name of
+.IR hostname .
+If one is found, it is printed to standard output and the program exits
+with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

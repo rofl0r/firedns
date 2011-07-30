@@ -1,0 +1,35 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvemxlist 3 2004-02-12
+.SH NAME
+firedns_resolvemxlist \- Resolve a list of MX records of a hostname
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct firedns_mxlist *firedns_resolvemxlist(const char * const " "name" ")"
+.br
+.BI "struct firedns_mxlist *firedns_resolvemxlist_r(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_resolvemxlist() attempts to resolve a list of MX records
+for the hostname
+.IR name .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.IR "struct firedns_mxlist *".
+This structure is the first of a linked list.  It contains:
+
+	char *name;
+.br
+	unsigned int protocol;
+.RI ( FIREDNS_MX_SMTP " or " FIREDNS_MX_QMTP )
+.br
+	unsigned int priority;
+.br
+	struct firedns_mxlist *next;
+
+This function returns NULL on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

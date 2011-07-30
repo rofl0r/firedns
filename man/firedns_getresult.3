@@ -1,0 +1,62 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_getresult 3 2004-02-12
+.SH NAME
+firedns_getresult \- Retrieve a result from a previous FireDNS query
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_getresult(const int " "fd" ")"
+.br
+.BI "char *firedns_getresult_r(const int " "fd" ")"
+.br
+.BI "char *firedns_getresult_s(const int " "fd" ", char *" "result" ")"
+.SH DESCRIPTION
+firedns_getresult() returns the result for the request identified
+by the file descriptor
+.IR fd .
+It returns
+.I NULL
+if there has been no response to the request or the response indicates
+failure.
+.SH RETURN VALUE
+Returns
+.I NULL
+on failure, or a pointer to the result.  The return value is meant to
+be cast depending upon the initial request made.
+.HP
+Casts:
+.br
+firedns_getip4() - (struct in_addr *)
+.br
+firedns_getip4list() - (struct firedns_ip4list *) /* linked list */
+.br
+firedns_getip6() - (struct in6_addr *)
+.br
+firedns_getip6list() - (struct firedns_ip6list *) /* linked list */
+.br
+firedns_gettxt() - (char *)
+.br
+firedns_gettxtlist() - (struct firedns_txtlist *) /* linked list */
+.br
+firedns_getmx() - (char *)
+.br
+firedns_getmxlist() - (struct firedns_mxlist *) /* linked list */
+.br
+firedns_getname4() - (char *)
+.br
+firedns_getname6() - (char *)
+.br
+firedns_getcname() - (char *)
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3),
+.BR firedns_getip4 (3),
+.BR firedns_getip6 (3),
+.BR firedns_gettxt (3),
+.BR firedns_getmx (3),
+.BR firedns_getmxlist (3),
+.BR firedns_getname4 (3),
+.BR firedns_getname6 (3)

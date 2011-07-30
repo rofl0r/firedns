@@ -1,0 +1,30 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvetxtlist 3 2004-02-12
+.SH NAME
+firedns_resolvetxtlist \- Resolve a list of TXT records of a hostname
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct firedns_txtlist *firedns_resolvetxtlist(const char * const " "name" ")"
+.br
+.BI "struct firedns_txtlist *firedns_resolvetxtlist_r(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_resolvetxtlist() attempts to resolve a list of TXT records
+for the hostname
+.IR name .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.IR "struct firedns_txtlist *".
+This structure is the first of a linked list.  It contains:
+
+	char *txt;
+.br
+	struct firedns_txtlist *next;
+
+This function returns NULL on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

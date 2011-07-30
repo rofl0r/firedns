@@ -1,0 +1,19 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnstxtlist 1 2004-02-12
+.SH NAME
+fdnstxtlist \- resolve a list of TXT records for a hostname
+.SH SYNOPSIS
+.BI "fdnstxtlist " <hostname>
+.SH DESCRIPTION
+fdnstxtlist will attempt to look up a list of TXT records for
+.IR hostname .
+If any are found, they are printed to standard output seperated by newlines and the program exits
+with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH BUGS
+It is impossible to determine the difference between two TXT records and one TXT record
+containing a newline in the output.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

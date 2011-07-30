@@ -1,0 +1,26 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_ntoa6 3 2002-03-31
+.SH NAME
+firedns_ntoa6 \- convert a binary format IPv6 address to a colon seperated string
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_ntoa6(const struct in6_addr *" "ip" ")"
+.br
+.BI "char *firedns_ntoa6_r(const struct in6_addr *" "ip" ")"
+.br
+.BI "char *firedns_ntoa6_s(const struct in6_addr *" "ip" ", char *" "result" ")"
+.SH DESCRIPTION
+firedns_ntoa6() takes an IPv6 address in binary format in
+.I ip
+and returns a
+.I char *
+of the IP in human-readable colon seperated format.
+.SH RETURN VALUE
+Returns a string containing the IP address in human-readable colon seperated format.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

@@ -1,0 +1,28 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvetxt 3 2002-03-31
+.SH NAME
+firedns_resolvetxt \- Resolve a TXT record of a hostname
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_resolvetxt(const char * const " "name" ")"
+.br
+.BI "char *firedns_resolvetxt_r(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_resolvetxt() attempts to resolve a TXT record
+for the hostname
+.IR name .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.I char *
+that contains a TXT record of
+.IR name ,
+or
+.I NULL
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

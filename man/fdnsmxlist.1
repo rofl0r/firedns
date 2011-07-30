@@ -1,0 +1,19 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsmxlist 1 2004-02-12
+.SH NAME
+fdnsmxlist \- resolve a list of MX records for hostname
+.SH SYNOPSIS
+.BI "fdnsmxlist " <hostname>
+.SH DESCRIPTION
+fdnsmxlist will attempt to look up a list of MX records for
+.IR hostname .
+If any are found, they are printed to standard output seperated by newlines in the format:
+
+.IR " Protocol " ( Priority ) " hostname" : port
+
+and the program exits with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

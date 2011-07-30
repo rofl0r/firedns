@@ -1,0 +1,31 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_getname6 3 2002-03-31
+.SH NAME
+firedns_getname6 \- Create a query to resolve an IPv6 address to a hostname
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "int firedns_getname6(const struct in6_addr *" "ip" ")"
+.SH DESCRIPTION
+firedns_getname6() creates and sends a request to resolve
+the IPv6 address
+.I ip
+to a hostname.  It returns a file descriptor that should be
+.IR select (2)'ed
+upon (read set).  When the file descriptor shows ready
+for reading call
+.IR firedns_getresult (3)
+to retrieve the results.
+.SH RETURN VALUE
+Returns an integer file descriptor that can be used the
+same as any other file descriptor.  Returns
+.I -1
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3),
+.BR firedns_getresult (3),
+.BR select (2)

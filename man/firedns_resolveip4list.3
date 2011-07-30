@@ -1,0 +1,30 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolveip4list 3 2004-02-12
+.SH NAME
+firedns_resolveip4list \- Resolve a list of A records of a hostname
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct firedns_ip4list *firedns_resolveip4list(const char * const " "name" ")"
+.br
+.BI "struct firedns_ip4list *firedns_resolveip4list_r(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_resolveip4list() attempts to resolve a list of A records
+for the hostname
+.IR name .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.IR "struct firedns_ip4list *".
+This structure is the first of a linked list.  It contains:
+
+	struct in_addr ip;
+.br
+	struct firedns_ip4list *next;
+
+This function returns NULL on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

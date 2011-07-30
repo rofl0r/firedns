@@ -1,0 +1,48 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvemxalist 3 2004-02-12
+.SH NAME
+firedns_resolvemxalist \- Resolve a list of MX records of a hostname and their corresponding A records
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "struct firedns_mxlist *firedns_resolvemxalist(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_resolvemxalist() attempts to resolve a list of MX records
+for the hostname
+.IR name .
+If it fails, it treats the host as having a priority 0 MX record,
+and attempts to resolve a list of A and AAAA records for the hostname.  If the MX record lookup
+succeeds, it looks up the list of A and AAAA records for each MX record in parallel.  It also
+checks for RFC-violating CNAMEs for each MX record.
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.IR "struct firedns_mxlist *".
+This structure is the first of a linked list.  It contains:
+
+	char *name;
+.br
+	char *cname;
+.br
+	struct firedns_ip4list *ip4list;
+.br
+	struct firedns_ip6list *ip6list;
+.br
+	unsigned int protocol;
+.RI ( FIREDNS_MX_SMTP " or " FIREDNS_MX_QMTP )
+.br
+	unsigned int priority;
+.br
+	struct firedns_mxlist *next;
+
+This function returns NULL on error.
+
+Any result return by this function should be freed with
+.IR firedns_free_mxalist (3).
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)
+.br
+.BR firedns_free_mxalist (3)

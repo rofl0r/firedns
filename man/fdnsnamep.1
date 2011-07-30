@@ -1,0 +1,20 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsnamep 1 2004-02-13
+.SH NAME
+fdnsnamep \- resolve an IPv4 or IPv6 address to a hostname with paranoid checking
+.SH SYNOPSIS
+.BI "fdnsname " "<IP address>"
+.SH DESCRIPTION
+fdnsname will attempt to look up a single hostname for
+.IR "IP address" 
+(which is an IPv4 address in dotted-quad format or an IPv6 address in
+colon-seperated format).  If one is found, the program checks to make sure that the
+hostname has a corresponding A or AAAA record pointing back to the supplied IP.  If so,
+the hostname is printed to standard output and the program exits
+with return code 0.  If the paranoid check fails, nothing is printed and the
+program exits with return code 3.  If no hostname is found, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

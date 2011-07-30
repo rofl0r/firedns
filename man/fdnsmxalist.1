@@ -1,0 +1,40 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnsmxalist 1 2004-02-12
+.SH NAME
+fdnsmxalist \- resolve a list of MX records and their corresponding A records for hostname
+.SH SYNOPSIS
+.BI "fdnsmxalist [" -x "] " <hostname>
+.SH DESCRIPTION
+fdnsmxalist will attempt to look up a list of MX records for
+.IR hostname .
+If any are found, they are printed to standard output seperated by newlines in the format:
+
+.IR " Protocol " ( Priority ) " hostname" : port
+
+The program then looks up lists of A and AAAA records for each MX record, and prints them to standard
+output, one IP per line.  Lines are printed to standard output starting with "ERROR: " if any
+MX records have no corresponding A or AAAA records, are CNAMEs (an RFC violation), or have A or AAAA records
+which point to non-routable IP addresses.
+
+If the -x switch is passed on the command line, the program outputs machine-parsable XML instead of
+the human-readable tree.
+
+Exit codes for the program are:
+
+.IR "  0" " - Everything looks fine"
+.br
+.IR "  1" " - An MX has a non-routable IP"
+.br
+.IR "  2" " - An MX doesn't exist"
+.br
+.IR "  3" " - An MX is a CNAME"
+.br
+.IR "  4" " - An MX is an IP address"
+.br
+.IR "100" " - Invalid syntax"
+.br
+.IR "103" " - DNS timeout or host does not have MX records"
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

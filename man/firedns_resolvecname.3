@@ -1,0 +1,28 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_resolvecname 3 2004-02-12
+.SH NAME
+firedns_resolvecname \- Resolve the canonical name of a host
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "char *firedns_resolvecname(const char * " "name" ")"
+.br
+.BI "char *firedns_resolvecname_r(const char * " "name" ")"
+.SH DESCRIPTION
+firedns_resolvecname() attempts to resolve the canonical name (CNAME) of
+.IR name .
+.SH RETURN VALUE
+Returns a pointer to an internal static
+.I char *
+that contains a CNAME
+.IR ip ,
+or
+.I NULL
+if there is no such record (indicating that you already have the canonical
+name of the host).
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)

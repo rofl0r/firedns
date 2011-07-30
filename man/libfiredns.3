@@ -1,0 +1,114 @@
+.\" (C) 2002 Ian Gulliver
+.TH libfiredns 3 2004-02-12
+.SH NAME
+libfiredns \- library for asynchronous DNS requests
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.SH DESCRIPTION
+libfiredns is a library for handling asynchronous DNS
+requests.  It provides a very simple interface for sending
+requests and parsing reponses, as well as low-timeout
+blocking functions.  It can also be compiled to override
+the BIND/LIBC functions with its alternative implementations.
+libfiredns functions have much lower timeouts than the stock
+functions and tend to be faster because they send requests
+to all configured system nameservers at the same time.
+.P
+Any function ending in "_r" is reentrant; it is safe to be
+used from threaded programs, and it returns a dynamically
+allocated buffer which must be free()'d later.
+.P
+Any function ending in "_s" takes a buffer as a parameter that
+it will write to.
+.HP
+Non-network functions:
+.br
+.BR firedns_aton4 (3)
+.br
+.BR firedns_aton6 (3)
+.br
+.BR firedns_ntoa4 (3)
+.br
+.BR firedns_ntoa6 (3)
+.HP
+Non-blocking functions:
+.br
+.BR firedns_getip4 (3)
+.br
+.BR firedns_getip4list (3)
+.br
+.BR firedns_getip6 (3)
+.br
+.BR firedns_getip6list (3)
+.br
+.BR firedns_gettxt (3)
+.br
+.BR firedns_gettxtlist (3)
+.br
+.BR firedns_getmx (3)
+.br
+.BR firedns_getmxlist (3)
+.br
+.BR firedns_getname4 (3)
+.br
+.BR firedns_getname6 (3)
+.br
+.BR firedns_getcname (3)
+.br
+.BR firedns_getresult (3)
+.HP
+Blocking functions:
+.br
+.BR firedns_resolveip4 (3)
+.br
+.BR firedns_resolveip4list (3)
+.br
+.BR firedns_resolveip6 (3)
+.br
+.BR firedns_resolveip6list (3)
+.br
+.BR firedns_resolvetxt (3)
+.br
+.BR firedns_resolvetxtlist (3)
+.br
+.BR firedns_resolvemx (3)
+.br
+.BR firedns_resolvemxlist (3)
+.br
+.BR firedns_resolvemxalist (3)
+.br
+.BR firedns_resolvename4 (3)
+.br
+.BR firedns_resolvename6 (3)
+.br
+.BR firedns_resolvecname (3)
+.HP
+Miscellaneous functions:
+.br
+.BR firedns_free_mxalist (3)
+.SH FILES
+/usr/local/include/firedns.h
+.br
+/usr/local/lib/libfiredns.so
+.br
+/usr/local/lib/libfiredns.a
+.br
+/usr/local/etc/firedns.conf
+.br
+/etc/resolv.conf
+.SH BUGS
+This used to say:
+
+FireDNS is very network unfriendly.  It sends queries to all
+nameservers in /usr/local/etc/firedns.conf or (fallback) /etc/resolv.conf
+at the same time.  This loads the nameservers and the network
+much more than existing implementations but tends to get responses
+much faster.
+
+However, it seems that the network usage is well worth the 10 - 15% speed
+increase (in ideal situations) that this program can provide.  If a primary
+nameserver is down, this speed increase is > 10000%.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>

@@ -1,0 +1,31 @@
+.\" (C) 2002 Ian Gulliver
+.TH firedns_gettxt 3 2002-03-31
+.SH NAME
+firedns_gettxt \- Create a query to resolve a hostname's TXT record
+.SH SYNOPSIS
+.B #include <firedns.h>
+.br
+.B -lfiredns
+.LP
+.BI "int firedns_gettxt(const char * const " "name" ")"
+.SH DESCRIPTION
+firedns_gettxt() creates and sends a request to resolve
+the TXT record of
+.IR name .
+It returns a file descriptor that should be
+.IR select (2)'ed
+upon (read set).  When the file descriptor shows ready
+for reading call
+.IR firedns_getresult (3)
+to retrieve the results.
+.SH RETURN VALUE
+Returns an integer file descriptor that can be used the
+same as any other file descriptor.  Returns
+.I -1
+on error.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3),
+.BR firedns_getresult (3),
+.BR select (2)

@@ -1,0 +1,16 @@
+.\" (C) 2004 Ian Gulliver
+.TH fdnstxt 1 2004-02-12
+.SH NAME
+fdnstxt \- resolve a TXT record of a hostname
+.SH SYNOPSIS
+.BI "fdnstxt " <hostname>
+.SH DESCRIPTION
+fdnstxt will attempt to look up a single TXT record for
+.IR hostname .
+If one is found, it is printed to standard output and the program exits
+with return code 0.  If not, nothing is printed and the program exits
+with return code 1.
+.SH AUTHOR
+Ian Gulliver <ian@penguinhosting.net>
+.SH SEE ALSO
+.BR libfiredns (3)
