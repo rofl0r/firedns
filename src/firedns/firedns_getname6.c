@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include "../../../lib/include/strlib.h"
 
 int firedns_getname6(const struct in6_addr * restrict const ip) {
 	char query[512];
@@ -6,7 +7,7 @@ int firedns_getname6(const struct in6_addr * restrict const ip) {
 	struct s_connection * restrict s;
 	int l;
 	firedns_init();
-	sprintf(query,"%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.%0x.ip6.int",
+	ulz_snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.int",
 			ip->s6_addr[15] & 0x0f,
 			(ip->s6_addr[15] & 0xf0) >> 4,
 			ip->s6_addr[14] & 0x0f,

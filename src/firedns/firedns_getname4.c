@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include "../../../lib/include/strlib.h"
 
 int firedns_getname4(const struct in_addr * restrict const ip) { 
 	char query[512];
@@ -8,7 +9,7 @@ int firedns_getname4(const struct in_addr * restrict const ip) {
 	int l;
 	firedns_init();
 	c = (unsigned char *)&ip->s_addr;
-	sprintf(query,"%d.%d.%d.%d.in-addr.arpa",c[3],c[2],c[1],c[0]);
+	ulz_snprintf(query, sizeof(query), "%d.%d.%d.%d.in-addr.arpa",c[3],c[2],c[1],c[0]);
 	l = firedns_build_query_payload(query,FDNS_QRY_PTR,1,(unsigned char *)&h.payload);
 	if (l == -1)
 		return -1;

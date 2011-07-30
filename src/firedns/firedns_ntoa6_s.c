@@ -1,8 +1,9 @@
+#include "../../../lib/include/strlib.h"
 #include "firedns_internal.h"
 
 char *firedns_ntoa6_s(const struct in6_addr * restrict const ip, char * restrict const result) {
 	char *c;
-	sprintf(result,"%x:%x:%x:%x:%x:%x:%x:%x",
+	ulz_snprintf(result, 48, "%x:%x:%x:%x:%x:%x:%x:%x",
 			ntohs(*((unsigned short *)&ip->s6_addr[0])),
 			ntohs(*((unsigned short *)&ip->s6_addr[2])),
 			ntohs(*((unsigned short *)&ip->s6_addr[4])),
