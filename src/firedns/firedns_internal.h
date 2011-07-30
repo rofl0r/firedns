@@ -15,7 +15,6 @@
 #define _FIREDNS_C
 #define max(a,b) (a > b ? a : b)
 #define FDNS_MAX              8                    
-#define FDNS_CONFIG_PREF     "/etc/firedns.conf"   
 #define FDNS_CONFIG_FBCK     "/etc/resolv.conf"    
 #define FDNS_PORT            53                    
 #define FDNS_QRY_A            1                    
