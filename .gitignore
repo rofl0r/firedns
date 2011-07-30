@@ -1,0 +1,7 @@
+*~
+*.o
+*.a
+*.so
+*.rcb
+config.mak
+
