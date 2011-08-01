@@ -1,15 +1,5 @@
 #include "firedns_internal.h"
 
-const int firedns_mx_port[] = { 25, 209, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0 };
-
-const char *firedns_mx_name[] = { "SMTP", "QMTP", "Unknown", "Unknown",
-					"Unknown", "Unknown", "Unknown", "Unknown",
-					"Unknown", "Unknown", "Unknown", "Unknown",
-					"Unknown", "Unknown", "Unknown", "Unknown" };
-
 struct in_addr servers4[FDNS_MAX]; 
 
 int i4; 
