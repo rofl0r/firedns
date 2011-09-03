@@ -35,6 +35,10 @@ struct in6_addr {
 };
 #endif
 
+typedef struct {
+	char resultbuf[1024];
+} firedns_state;
+
 #define FIREDNS_MX_SMTP 0
 #define FIREDNS_MX_QMTP 1
 
@@ -83,24 +87,23 @@ int firedns_getname6(const struct in6_addr * const ip);
 int firedns_getcname(const char * const name);
 int firedns_dnsbl_lookup_a(const struct in_addr * const ip, const char * const name);
 int firedns_dnsbl_lookup_txt(const struct in_addr * const ip, const char * const name);
-char *firedns_getresult(const int fd);
+char *firedns_getresult(firedns_state* self, const int fd);
 
 /* buffer pass-in non-blocking functions */
 struct in_addr *firedns_aton4_s(const char * const ipstring, struct in_addr * const ip);
 struct in6_addr *firedns_aton6_s(const char * const ipstring, struct in6_addr * const ip);
 char *firedns_ntoa4_s(const struct in_addr * const ip, char * const result);
 char *firedns_ntoa6_s(const struct in6_addr * const ip, char * const result);
-char *firedns_getresult_s(const int fd, char * const result);
+char *firedns_getresult_s(firedns_state* self, const int fd);
 
 /* thread-safe functions that allocate their own buffers */
 struct in_addr *firedns_aton4_r(const char * const ipstring);
 struct in6_addr *firedns_aton6_r(const char * const ipstring);
 char *firedns_ntoa4_r(const struct in_addr * const ip);
 char *firedns_ntoa6_r(const struct in6_addr * const ip);
-char *firedns_getresult_r(const int fd);
 
 /* low-timeout blocking functions */
-struct in_addr *firedns_resolveip4(const char * const name);
+struct in_addr *firedns_resolveip4(firedns_state* self, const char * const name);
 struct firedns_ip4list *firedns_resolveip4list(const char * const name);
 struct in6_addr *firedns_resolveip6(const char * const name);
 struct firedns_ip6list *firedns_resolveip6list(const char * const name);

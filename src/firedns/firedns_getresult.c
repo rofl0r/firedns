@@ -1,7 +1,6 @@
 #include "firedns_internal.h"
 
-char *firedns_getresult(const int fd) { 
-	static char result[RESULTSIZE];
-	return firedns_getresult_s(fd,result);
+char *firedns_getresult(firedns_state* self, const int fd) { 
+	return firedns_getresult_s(self, fd);
 }
 

@@ -1,6 +1,6 @@
 #include "firedns_internal.h"
 
-char *firedns_resolvecname_i(const char * restrict const name, char *(* const result)(int)) {
+char *firedns_resolvecname_i(const char* name, char *(* const result)(firedns_state*, int)) {
 	int fd;
 	int t,i;
 	char * restrict ret;

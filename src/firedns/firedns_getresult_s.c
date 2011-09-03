@@ -1,6 +1,7 @@
 #include "firedns_internal.h"
 
-char *firedns_getresult_s(const int fd, char * restrict const result) { 
+char *firedns_getresult_s(firedns_state* self, const int fd) { 
+	char* result = self->resultbuf;
 	struct s_header h;
 	struct s_connection * restrict c, *prev;
 	int l,i,q,curanswer,o;

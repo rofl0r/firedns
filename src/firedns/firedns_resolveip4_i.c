@@ -1,11 +1,18 @@
 #include "firedns_internal.h"
+#include "../../../lib/include/strlib.h"
 
-struct in_addr *firedns_resolveip4_i(const char * restrict const name, char *(* const result)(int)) { 
+struct in_addr *firedns_resolveip4_i(firedns_state* self, const char * name, char *(* const result)(firedns_state*, int)) { 
 	int fd;
 	int t,i;
-	struct in_addr * restrict ret;
+	struct in_addr* ret;
 	fd_set s;
 	struct timeval tv;
+	
+	if(isnumericipv4(name)) {
+		ipv4fromstring((char*)name, (unsigned char*) self->resultbuf);
+		return self->resultbuf;
+	}
+	
 	for (t = 0; t < FIREDNS_TRIES; t++) {
 		fd = firedns_getip4(name);
 		if (fd == -1)
@@ -15,7 +22,7 @@ struct in_addr *firedns_resolveip4_i(const char * restrict const name, char *(* 
 		FD_ZERO(&s);
 		FD_SET(fd,&s);
 		i = select(fd + 1,&s,NULL,NULL,&tv);
-		ret = (struct in_addr *) result(fd);
+		ret = (struct in_addr *) result(self, fd);
 		if (ret != NULL || i != 0)
 			return ret;
 	}
