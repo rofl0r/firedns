@@ -4,7 +4,6 @@ int firedns_getip6(const char * restrict const name) {
 	struct s_header h;
 	struct s_connection * restrict s;
 	int l;
-	firedns_init();
 	l = firedns_build_query_payload(name,FDNS_QRY_AAAA,1,(unsigned char *)&h.payload);
 	if (l == -1)
 		return -1;

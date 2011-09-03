@@ -14,7 +14,7 @@
 
 #define _FIREDNS_C
 #define max(a,b) (a > b ? a : b)
-#define FDNS_MAX              8                    
+                  
 #define FDNS_CONFIG_FBCK     "/etc/resolv.conf"    
 #define FDNS_PORT            53                    
 #define FDNS_QRY_A            1                    
@@ -29,18 +29,6 @@
 #define FIREDNS_TRIES 3
 #define RESULTSIZE 1024
 #define min(a,b) (a < b ? a : b)
-
-struct s_connection { 
-	struct s_connection *next; 
-	unsigned char id[2]; 
-	unsigned int class;
-	unsigned int type;
-	int want_list;
-	int fd; 
-#ifdef HAVE_IPV6
-	int v6;
-#endif
-};
 
 struct s_rr_middle {
 	unsigned int type;
@@ -73,25 +61,14 @@ extern const char tagstring[] ;
 extern const char firedns_version[] ;
 extern const int firedns_mx_port[] ;
 extern const char *firedns_mx_name[] ;
-extern struct in_addr servers4[FDNS_MAX]; 
 
-extern int i4; 
-#ifdef HAVE_IPV6
-extern int i6;
-extern struct in6_addr servers6[FDNS_MAX];
-#endif
-extern int initdone ;
-extern int wantclose ;
-extern int lastcreate ;
-extern pthread_mutex_t connlist_lock ;
-extern struct s_connection *connection_head ;
 void *firedns_align(void *inp);
 void firedns_fill_rr(struct s_rr_middle *  const rr, const unsigned char * const  input);
 void firedns_fill_header(struct s_header * const  header, const unsigned char * const  input, const int l);
 void firedns_empty_header(unsigned char * const  output, const struct s_header * const  header, const int l);
-void firedns_close(int fd);
-int firedns_send_requests(const struct s_header *  const h, const struct s_connection *  const s, const int l);
-struct s_connection *firedns_add_query(struct s_header *  const h);
+void firedns_close(firedns_state* self, int fd);
+int firedns_send_requests(firedns_state* self, const struct s_header *  const h, const struct s_connection *  const s, const int l);
+struct s_connection *firedns_add_query(firedns_state* self, struct s_header *  const h);
 int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short class, unsigned char * const payload);
 struct in_addr *firedns_resolveip4_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
 struct firedns_ip4list *firedns_resolveip4list_i(const char* name, char *(* const result)(firedns_state*, int));

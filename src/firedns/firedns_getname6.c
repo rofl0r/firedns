@@ -6,7 +6,6 @@ int firedns_getname6(const struct in6_addr * restrict const ip) {
 	struct s_header h;
 	struct s_connection * restrict s;
 	int l;
-	firedns_init();
 	ulz_snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.int",
 			ip->s6_addr[15] & 0x0f,
 			(ip->s6_addr[15] & 0xf0) >> 4,

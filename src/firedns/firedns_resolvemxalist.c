@@ -1,6 +1,7 @@
 #include "firedns_internal.h"
+#include <string.h>
 
-struct firedns_mxlist *firedns_resolvemxalist(const char * const name) {
+struct firedns_mxlist* firedns_resolvemxalist(firedns_state* self, const char* name) {
 	int t,i,n,c = 0;
 	int cname_fd[256] = {0};
 	int alist_fd[256] = {0};
@@ -10,9 +11,9 @@ struct firedns_mxlist *firedns_resolvemxalist(const char * const name) {
 	fd_set s;
 	struct timeval tv;
 	int firstround = 1;
-	mxlist = firedns_resolvemxlist_r(name);
+	mxlist = firedns_resolvemxlist(self, name);
 	if (mxlist == NULL) {
-		mxlist = firestring_malloc(sizeof(struct firedns_mxlist) + strlen(name) + 1 + FIREDNS_ALIGN);
+		mxlist = malloc(sizeof(struct firedns_mxlist) + strlen(name) + 1 + FIREDNS_ALIGN);
 		mxlist->next = NULL;
 		mxlist->cname = NULL;
 		mxlist->ip4list = NULL;
@@ -25,9 +26,9 @@ struct firedns_mxlist *firedns_resolvemxalist(const char * const name) {
 	
 	iter = mxlist;
 	while (iter != NULL) {
-		iter->ip4list = firestring_malloc(RESULTSIZE);
-		iter->ip6list = firestring_malloc(RESULTSIZE);
-		iter->cname = firestring_malloc(RESULTSIZE);
+		iter->ip4list = malloc(RESULTSIZE);
+		iter->ip6list = malloc(RESULTSIZE);
+		iter->cname = malloc(RESULTSIZE);
 		iter = iter->next;
 		c += 3;
 	}

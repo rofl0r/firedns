@@ -9,8 +9,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 	unsigned char buffer[sizeof(struct s_header)];
 	unsigned short p;
 	prev = NULL;
-	pthread_mutex_lock(&connlist_lock);
-	c = connection_head;
+	c = self->connection_head;
 	while (c != NULL) { 
 		if (c->fd == fd)
 			break;
@@ -18,40 +17,38 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 		c = c->next;
 	}
 	if (c == NULL) {
-		pthread_mutex_unlock(&connlist_lock);
 		return NULL; 
 	}
 	
 	if (prev != NULL)
 		prev->next = c->next;
 	else
-		connection_head = c->next;
-	pthread_mutex_unlock(&connlist_lock);
-	l = recv(c->fd,buffer,sizeof(struct s_header),0);
-	firedns_close(c->fd);
+		self->connection_head = c->next;
+	l = recv(c->fd, buffer, sizeof(struct s_header), 0);
+	firedns_close(self, c->fd);
 	if (l < 12) {
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL;
 	}
 	firedns_fill_header(&h,buffer,l - 12);
 	if (c->id[0] != h.id[0] || c->id[1] != h.id[1]) {
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL; 
 	}
 	if ((h.flags1 & FLAGS1_MASK_QR) == 0) {
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL;
 	}
 	if ((h.flags1 & FLAGS1_MASK_OPCODE) != 0) {
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL;
 	}
 	if ((h.flags2 & FLAGS2_MASK_RCODE) != 0) {
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL;
 	}
 	if (h.ancount < 1)  { 
-		free(c);
+		firedns_freeconn(self, c);
 		return NULL;
 	}
 	
@@ -87,7 +84,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 			}
 		}
 		if (l - i < 10) {
-			free(c);
+			firedns_freeconn(self, c);
 			return NULL;
 		}
 		firedns_fill_rr(&rr,&h.payload[i]);
@@ -187,7 +184,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 							}
 						}
 						if (l - i < 10) {
-							free(c);
+							firedns_freeconn(self, c);
 							return NULL;
 						}
 						firedns_fill_rr(&rr,&h.payload[i]);
@@ -246,7 +243,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 							unsigned char l;
 							l = trailer[0];
 							if (trailer + l > end) { 
-								free(c);
+								firedns_freeconn(self, c);
 								return NULL;
 							}
 							memcpy(&txtlist->txt[o],&trailer[1],l);
@@ -275,7 +272,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
@@ -294,7 +291,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 				while (trailer < end) {
 					unsigned char l = trailer[0];
 					if (trailer + l > end) { 
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					memcpy(&result[o],&trailer[1],l);
@@ -313,7 +310,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 					if (rr.class != 1)
 						break;
 					if (rr.rdlength != 4) {
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					memcpy(&alist->ip,&h.payload[i],4);
@@ -337,7 +334,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
@@ -360,7 +357,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 					if (rr.class != 1)
 						break;
 					if (rr.rdlength != 16) {
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					memcpy(&alist->ip,&h.payload[i],16);
@@ -384,7 +381,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						free(c);
+						firedns_freeconn(self, c);
 						return NULL;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
@@ -404,7 +401,7 @@ char *firedns_getresult_s(firedns_state* self, const int fd) {
 			result[rr.rdlength] = '\0';
 			break;
 	}
-	free(c);
+	firedns_freeconn(self, c);
 	return result;
 }
 

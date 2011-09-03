@@ -1,8 +1,9 @@
 #include "firedns_internal.h"
 
-struct s_connection *firedns_add_query(struct s_header * restrict const h) { 
-	struct s_connection * restrict s;
-	s = firestring_malloc(sizeof(struct s_connection));
+struct s_connection *firedns_add_query(firedns_state* self, struct s_header * const h) { 
+	struct s_connection* s;
+	s = firedns_getconn(self);
+	if(!s) return s;
 	
 	h->id[0] = s->id[0] = rand() % 255; 
 	h->id[1] = s->id[1] = rand() % 255;
@@ -50,28 +51,26 @@ struct s_connection *firedns_add_query(struct s_header * restrict const h) {
 			addr.sin_family = AF_INET;
 			addr.sin_port = 0;
 			addr.sin_addr.s_addr = INADDR_ANY;
-			if (bind(s->fd,(struct sockaddr *)&addr,sizeof(addr)) != 0) {
+			if (bind(s->fd, (struct sockaddr *) &addr, sizeof(addr)) != 0) {
 				close(s->fd);
 				s->fd = -1;
 			}
 		}
 		if (s->fd == -1) {
-			free(s);
+			firedns_freeconn(self, s);
 			return NULL;
 		}
 #ifdef HAVE_IPV6
 	}
 #endif
 	
-	pthread_mutex_lock(&connlist_lock);
-	s->next = connection_head;
-	connection_head = s;
-	if (wantclose == 1) {
-		close(lastcreate);
-		wantclose = 0;
+	s->next = self->connection_head;
+	self->connection_head = s;
+	if (self->wantclose == 1) {
+		close(self->lastcreate);
+		self->wantclose = 0;
 	}
-	lastcreate = s->fd;
-	pthread_mutex_unlock(&connlist_lock);
+	self->lastcreate = s->fd;
 	return s;
 }
 
