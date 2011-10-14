@@ -4,13 +4,14 @@
 
 int main(int argc, char **argv) {
 	struct firedns_ip6list *iter;
+	firedns_state dns, *d = &dns;
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
 		return 2;
 	}
-
-	iter = firedns_resolveip6list(argv[1]);
+	firedns_init(d);
+	iter = firedns_resolveip6list(d, argv[1]);
 
 	if (iter == NULL)
 		return 1;

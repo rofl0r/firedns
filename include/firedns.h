@@ -94,50 +94,53 @@ struct firedns_txtlist {
 	struct firedns_txtlist *next;
 };
 
+/* state-free helper functions */
+struct in_addr *firedns_aton4(const char* ipstring);
+struct in6_addr *firedns_aton6(const char* ipstring);
+char *firedns_ntoa4(const struct in_addr* ip);
+char *firedns_ntoa6(const struct in6_addr* ip);
+
+struct in_addr *firedns_aton4_s(const char* ipstring, struct in_addr* ip);
+struct in6_addr *firedns_aton6_s(const char* ipstring, struct in6_addr* ip);
+char *firedns_ntoa4_s(const struct in_addr* ip, char* result);
+char *firedns_ntoa6_s(const struct in6_addr* ip, char* result);
+
 void firedns_init(firedns_state* self);
 struct s_connection* firedns_getconn(firedns_state* self);
 void firedns_freeconn(firedns_state* self, struct s_connection* conn);
 
 /* non-blocking functions */
-struct in_addr *firedns_aton4(const char * const ipstring);
-struct in6_addr *firedns_aton6(const char * const ipstring);
-char *firedns_ntoa4(const struct in_addr * const ip);
-char *firedns_ntoa6(const struct in6_addr * const ip);
 int firedns_getip4(firedns_state* self, const char* name);
-int firedns_getip4list(const char * const name);
-int firedns_getip6(const char * const name);
-int firedns_getip6list(const char * const name);
-int firedns_gettxt(const char * const name);
-int firedns_gettxtlist(const char * const name);
-int firedns_getmx(const char * const name);
-int firedns_getmxlist(const char * const name);
-int firedns_getname4(const struct in_addr * const ip);
-int firedns_getname6(const struct in6_addr * const ip);
-int firedns_getcname(const char * const name);
-int firedns_dnsbl_lookup_a(const struct in_addr * const ip, const char * const name);
-int firedns_dnsbl_lookup_txt(const struct in_addr * const ip, const char * const name);
+int firedns_getip4list(firedns_state* self, const char* name);
+int firedns_getip6(firedns_state* self, const char* name);
+int firedns_getip6list(firedns_state* self, const char* name);
+int firedns_gettxt(firedns_state* self, const char* name);
+int firedns_gettxtlist(firedns_state* self, const char* name);
+int firedns_getmx(firedns_state* self, const char* name);
+int firedns_getmxlist(firedns_state* self, const char* name);
+int firedns_getname4(firedns_state* self, const struct in_addr* ip);
+int firedns_getname6(firedns_state* self, const struct in6_addr* ip);
+int firedns_getcname(firedns_state* self, const char* name);
+int firedns_dnsbl_lookup_a(const struct in_addr* ip, const char* name);
+int firedns_dnsbl_lookup_txt(const struct in_addr* ip, const char* name);
 char *firedns_getresult(firedns_state* self, const int fd);
 
 /* buffer pass-in non-blocking functions */
-struct in_addr *firedns_aton4_s(const char * const ipstring, struct in_addr * const ip);
-struct in6_addr *firedns_aton6_s(const char * const ipstring, struct in6_addr * const ip);
-char *firedns_ntoa4_s(const struct in_addr * const ip, char * const result);
-char *firedns_ntoa6_s(const struct in6_addr * const ip, char * const result);
 char *firedns_getresult_s(firedns_state* self, const int fd);
 
 /* low-timeout blocking functions */
-struct in_addr *firedns_resolveip4(firedns_state* self, const char * const name);
-struct firedns_ip4list *firedns_resolveip4list(const char * const name);
-struct in6_addr *firedns_resolveip6(const char * const name);
-struct firedns_ip6list *firedns_resolveip6list(const char * const name);
-char *firedns_resolvetxt(const char * const name);
-struct firedns_txtlist *firedns_resolvetxtlist(const char * const name);
-char *firedns_resolvemx(const char * const name);
-struct firedns_mxlist *firedns_resolvemxlist(const char * const name);
-struct firedns_mxlist *firedns_resolvemxalist(const char * const name);
-char *firedns_resolvename4(const struct in_addr * const ip);
-char *firedns_resolvename6(const struct in6_addr * const ip);
-char *firedns_resolvecname(const char * const name);
+struct in_addr *firedns_resolveip4(firedns_state* self, const char* name);
+struct firedns_ip4list *firedns_resolveip4list(firedns_state* self, const char* name);
+struct in6_addr *firedns_resolveip6(firedns_state* self, const char* name);
+struct firedns_ip6list *firedns_resolveip6list(firedns_state* self, const char* name);
+char *firedns_resolvetxt(firedns_state* self, const char* name);
+struct firedns_txtlist *firedns_resolvetxtlist(firedns_state* self, const char* name);
+char *firedns_resolvemx(firedns_state* self, const char* name);
+struct firedns_mxlist *firedns_resolvemxlist(firedns_state* self, const char* name);
+struct firedns_mxlist *firedns_resolvemxalist(firedns_state* self, const char* name);
+char *firedns_resolvename4(firedns_state* self, const struct in_addr* ip);
+char *firedns_resolvename6(firedns_state* self, const struct in6_addr* ip);
+char *firedns_resolvecname(firedns_state* self, const char* name);
 
 
 /* misc functions */

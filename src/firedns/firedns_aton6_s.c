@@ -1,6 +1,6 @@
 #include "firedns_internal.h"
 
-struct in6_addr *firedns_aton6_s(const char * restrict const ipstring, struct in6_addr * restrict const ip) {
+struct in6_addr *firedns_aton6_s(const char* ipstring, struct in6_addr* ip) {
 	
 	char instring[40];
 	char tempstr[5];

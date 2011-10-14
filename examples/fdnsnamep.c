@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <firestring.h>
+#include <string.h>
+#include <stdlib.h>
 #include "../include/firedns.h"
 
 int main(int argc, char **argv) {
@@ -9,11 +10,13 @@ int main(int argc, char **argv) {
 	struct firedns_ip4list *ipiter;
 	struct firedns_ip6list *ip6iter;
 	char *local_result;
+	firedns_state dns, *d = &dns;
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <ip address>\n",argv[0]);
 		return 2;
 	}
+	firedns_init(d);
 
 	binip6 = firedns_aton6(argv[1]);
 	if (binip6 == NULL) {
@@ -24,14 +27,14 @@ int main(int argc, char **argv) {
 		}
 
 		/* IPv4 */
-		result = firedns_resolvename4(binip);
+		result = firedns_resolvename4(d, binip);
 
 		if (result == NULL)
 			return 1;
 
-		local_result = firestring_strdup(result);
+		local_result = strdup(result);
 
-		ipiter = firedns_resolveip4list(result);
+		ipiter = firedns_resolveip4list(d, result);
 		while (ipiter != NULL) {
 			if (memcmp(&ipiter->ip,binip,4) == 0)
 				goto good;
@@ -42,14 +45,14 @@ int main(int argc, char **argv) {
 		return 3;
 	} else {
 		/* IPv6 */
-		result = firedns_resolvename6(binip6);
+		result = firedns_resolvename6(d, binip6);
 
 		if (result == NULL)
 			return 1;
 
-		local_result = firestring_strdup(result);
+		local_result = strdup(result);
 
-		ip6iter = firedns_resolveip6list(result);
+		ip6iter = firedns_resolveip6list(d, result);
 		while (ip6iter != NULL) {
 			if (memcmp(&ip6iter->ip,binip6,16) == 0)
 				goto good;

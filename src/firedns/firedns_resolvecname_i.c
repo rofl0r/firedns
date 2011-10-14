@@ -1,13 +1,13 @@
 #include "firedns_internal.h"
 
-char *firedns_resolvecname_i(const char* name, char *(* const result)(firedns_state*, int)) {
+char *firedns_resolvecname_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int)) {
 	int fd;
 	int t,i;
-	char * restrict ret;
+	char* ret;
 	fd_set s;
 	struct timeval tv;
 	for (t = 0; t < FIREDNS_TRIES; t++) {
-		fd = firedns_getcname(name);
+		fd = firedns_getcname(self, name);
 		if (fd == -1)
 			return NULL;
 		tv.tv_sec = 5;
@@ -15,7 +15,7 @@ char *firedns_resolvecname_i(const char* name, char *(* const result)(firedns_st
 		FD_ZERO(&s);
 		FD_SET(fd,&s);
 		i = select(fd + 1,&s,NULL,NULL,&tv);
-		ret = result(fd);
+		ret = result(self, fd);
 		if (ret != NULL || i != 0)
 			return ret;
 	}

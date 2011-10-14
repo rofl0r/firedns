@@ -1,6 +1,6 @@
 #include "firedns_internal.h"
 
-struct firedns_txtlist *firedns_resolvetxtlist(const char * const name) { 
-	return firedns_resolvetxtlist_i(name,firedns_getresult);
+struct firedns_txtlist *firedns_resolvetxtlist(firedns_state* self, const char* name) { 
+	return firedns_resolvetxtlist_i(self, name,firedns_getresult);
 }
 

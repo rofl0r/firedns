@@ -3,14 +3,16 @@
 #include "../include/firedns.h"
 
 int main(int argc, char **argv) {
+	firedns_state dns, *d = &dns;
 	struct firedns_mxlist *iter;
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
 		return 2;
 	}
-
-	iter = firedns_resolvemxlist(argv[1]);
+	
+	firedns_init(d);
+	iter = firedns_resolvemxlist(d, argv[1]);
 
 	if (iter == NULL)
 		return 1;

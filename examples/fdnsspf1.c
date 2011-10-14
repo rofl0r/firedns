@@ -5,13 +5,15 @@
 int main(int argc, char **argv) {
 	struct firedns_txtlist *iter;
 	char *spfrecord = NULL;
+	firedns_state dns, *d = &dns; 
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
 		return 2;
 	}
 
-	iter = firedns_resolvetxtlist(argv[1]);
+	firedns_init(d);
+	iter = firedns_resolvetxtlist(d, argv[1]);
 
 	if (iter == NULL)
 		return 1;
