@@ -9,7 +9,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <pthread.h>
-#include "../../include/firedns.h"
+#include "../include/firedns.h"
 
 #define _FIREDNS_C
 #define max(a,b) (a > b ? a : b)

@@ -1,4 +1,4 @@
-#include "../../../lib/include/strlib.h"
+#include "../../lib/include/strlib.h"
 #include "firedns_internal.h"
 
 char *firedns_ntoa6_s(const struct in6_addr * restrict const ip, char * restrict const result) {

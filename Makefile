@@ -12,7 +12,7 @@ prefix = /usr/local/
 includedir = $(prefix)/include
 libdir = $(prefix)/lib
 
-SRCS = $(sort $(wildcard src/*/*.c))
+SRCS = $(sort $(wildcard src/*.c))
 OBJS = $(SRCS:.c=.o)
 LOBJS = $(OBJS:.o=.lo)
 
@@ -36,7 +36,6 @@ all: $(ALL_LIBS)
 install: $(ALL_LIBS:lib/%=$(DESTDIR)$(libdir)/%) $(ALL_INCLUDES:include/%=$(DESTDIR)$(includedir)/%) $(ALL_TOOLS:tools/%=$(DESTDIR)$(bindir)/%)
 
 clean:
-	rm -f crt/*.o
 	rm -f $(OBJS)
 	rm -f $(LOBJS)
 	rm -f $(ALL_LIBS) lib/*.[ao] lib/*.so

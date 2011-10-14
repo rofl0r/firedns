@@ -1,5 +1,5 @@
 #include "firedns_internal.h"
-#include "../../../lib/include/strlib.h"
+#include "../../lib/include/strlib.h"
 
 struct in_addr* firedns_resolveip4_i(firedns_state* self, const char * name, char *(* const result)(firedns_state*, int)) { 
 	int fd;

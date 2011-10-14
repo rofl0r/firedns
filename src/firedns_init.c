@@ -1,5 +1,5 @@
 #include "firedns_internal.h"
-#include "../../../lib/include/fileparser.h"
+#include "../../lib/include/fileparser.h"
 
 void firedns_init(firedns_state* self) { 
 	fileparser ff, *f = &ff;

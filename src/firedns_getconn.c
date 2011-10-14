@@ -1,4 +1,4 @@
-#include "../../include/firedns.h"
+#include "firedns_internal.h"
 #include <string.h>
 
 struct s_connection* firedns_getconn(firedns_state* self) {

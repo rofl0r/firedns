@@ -1,5 +1,5 @@
 #include "firedns_internal.h"
-#include "../../../lib/include/strlib.h"
+#include "../../lib/include/strlib.h"
 
 int firedns_getname6(firedns_state* self, const struct in6_addr* ip) {
 	char query[512];
