@@ -3,5 +3,6 @@
 *.a
 *.so
 *.rcb
+*.out
 config.mak
 
