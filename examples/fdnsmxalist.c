@@ -47,6 +47,10 @@ int checkjunk6(struct in6_addr *ip) {
  * 103 - DNS timeout
  */
 int main(int argc, char **argv) {
+#if 1
+	printf("error. mxalist not ported yet");
+	return 1;
+#else
 	struct firedns_mxlist *iter, *list;
 	int ret = 0;
 	int xml = 0;
@@ -164,4 +168,5 @@ wrap:
 		printf("</fdnsmxalist>\n");
 
 	return ret;
+#endif
 }

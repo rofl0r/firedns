@@ -1,6 +1,7 @@
 #include "firedns_internal.h"
 #include <string.h>
-
+//TODO: port to use no malloc and the new state mechanism...
+#if 0
 struct firedns_mxlist* firedns_resolvemxalist(firedns_state* self, const char* name) {
 	int t,i,n,c = 0;
 	int cname_fd[256] = {0};
@@ -150,3 +151,4 @@ struct firedns_mxlist* firedns_resolvemxalist(firedns_state* self, const char* n
 	return NULL;
 }
 
+#endif

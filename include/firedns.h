@@ -121,8 +121,6 @@ int firedns_getmxlist(firedns_state* self, const char* name);
 int firedns_getname4(firedns_state* self, const struct in_addr* ip);
 int firedns_getname6(firedns_state* self, const struct in6_addr* ip);
 int firedns_getcname(firedns_state* self, const char* name);
-int firedns_dnsbl_lookup_a(const struct in_addr* ip, const char* name);
-int firedns_dnsbl_lookup_txt(const struct in_addr* ip, const char* name);
 char *firedns_getresult(firedns_state* self, const int fd);
 
 /* buffer pass-in non-blocking functions */
@@ -137,7 +135,7 @@ char *firedns_resolvetxt(firedns_state* self, const char* name);
 struct firedns_txtlist *firedns_resolvetxtlist(firedns_state* self, const char* name);
 char *firedns_resolvemx(firedns_state* self, const char* name);
 struct firedns_mxlist *firedns_resolvemxlist(firedns_state* self, const char* name);
-struct firedns_mxlist *firedns_resolvemxalist(firedns_state* self, const char* name);
+//struct firedns_mxlist *firedns_resolvemxalist(firedns_state* self, const char* name);
 char *firedns_resolvename4(firedns_state* self, const struct in_addr* ip);
 char *firedns_resolvename6(firedns_state* self, const struct in6_addr* ip);
 char *firedns_resolvecname(firedns_state* self, const char* name);
