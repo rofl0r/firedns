@@ -69,17 +69,6 @@ void firedns_close(firedns_state* self, int fd);
 int firedns_send_requests(firedns_state* self, const struct s_header *  const h, const struct s_connection *  const s, const int l);
 struct s_connection *firedns_add_query(firedns_state* self, struct s_header *  const h);
 int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short class, unsigned char * const payload);
-struct in_addr *firedns_resolveip4_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-struct firedns_ip4list *firedns_resolveip4list_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-struct in6_addr *firedns_resolveip6_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-struct firedns_ip6list *firedns_resolveip6list_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-char *firedns_resolvetxt_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-struct firedns_txtlist *firedns_resolvetxtlist_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-char *firedns_resolvemx_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-struct firedns_mxlist *firedns_resolvemxlist_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
-char *firedns_resolvename4_i(firedns_state* self, const struct in_addr *  const ip, char *(* const result)(firedns_state*, int));
-char *firedns_resolvename6_i(firedns_state* self, const struct in6_addr *  const ip, char *(* const result)(firedns_state*, int));
-char *firedns_resolvecname_i(firedns_state* self, const char* name, char *(* const result)(firedns_state*, int));
 
 //RcB: DEP "*.c"
 
