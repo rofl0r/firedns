@@ -137,5 +137,5 @@ char *firedns_resolvecname(firedns_state* self, const char* name);
 void firedns_free_mxalist(struct firedns_mxlist *list);
 
 #endif
-//RcB: DEP "../src/firedns/*.c"
+//RcB: DEP "../src/*.c"
 
