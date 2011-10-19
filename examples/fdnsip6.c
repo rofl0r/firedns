@@ -4,6 +4,7 @@
 int main(int argc, char **argv) {
 	struct in6_addr *result;
 	firedns_state dns, *d = &dns;
+	char ntoabuf[256];
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
@@ -12,7 +13,7 @@ int main(int argc, char **argv) {
 	firedns_init(d);
 	result = firedns_resolveip6(d, argv[1]);
 	if (result) {
-		printf("%s\n",firedns_ntoa6(result));
+		printf("%s\n",firedns_ntoa6(result, ntoabuf));
 		return 0;
 	}
 

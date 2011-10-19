@@ -5,6 +5,7 @@
 int main(int argc, char **argv) {
 	struct firedns_ip6list *iter;
 	firedns_state dns, *d = &dns;
+	char ntoabuf[256];
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
@@ -17,7 +18,7 @@ int main(int argc, char **argv) {
 		return 1;
 
 	while (iter != NULL) {
-		printf("%s\n",firedns_ntoa6(&iter->ip));
+		printf("%s\n",firedns_ntoa6(&iter->ip, ntoabuf));
 		iter = iter->next;
 	}
 

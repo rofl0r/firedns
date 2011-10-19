@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
 	struct firedns_mxlist *iter, *list;
 	struct in6_addr buf6;
 	struct in_addr buf4;
+	char ntoabuf[256];
 	int ret = 0;
 	int xml = 0;
 
@@ -125,14 +126,14 @@ int main(int argc, char **argv) {
 
 			while (ipiter) {
 				if (xml)
-					printf("		<ip version=\"4\">%s",firedns_ntoa4(&ipiter->ip));
+					printf("		<ip version=\"4\">%s",firedns_ntoa4(&ipiter->ip, ntoabuf));
 				else
-					printf("             %s\n",firedns_ntoa4(&ipiter->ip));
+					printf("             %s\n",firedns_ntoa4(&ipiter->ip, ntoabuf));
 				if (checkjunk(&ipiter->ip)) {
 					if (xml)
 						printf("\n			<error type=\"private-ip\" />\n		");
 					else
-						printf("ERROR: %s has an IP of %s, which is non-routable\n",iter->name,firedns_ntoa4(&ipiter->ip));
+						printf("ERROR: %s has an IP of %s, which is non-routable\n",iter->name,firedns_ntoa4(&ipiter->ip, ntoabuf));
 					ret = max(ret,1);
 				}
 				if (xml)
@@ -142,14 +143,14 @@ int main(int argc, char **argv) {
 
 			while (ip6iter) {
 				if (xml)
-					printf("		<ip version=\"6\">%s",firedns_ntoa6(&ip6iter->ip));
+					printf("		<ip version=\"6\">%s",firedns_ntoa6(&ip6iter->ip, ntoabuf));
 				else
-					printf("             %s\n",firedns_ntoa6(&ip6iter->ip));
+					printf("             %s\n",firedns_ntoa6(&ip6iter->ip, ntoabuf));
 				if (checkjunk6(&ip6iter->ip)) {
 					if (xml)
 						printf("\n			<error type=\"private-ip\" />\n		");
 					else
-						printf("ERROR: %s has an IP of %s, which is non-routable\n",iter->name,firedns_ntoa6(&ip6iter->ip));
+						printf("ERROR: %s has an IP of %s, which is non-routable\n",iter->name,firedns_ntoa6(&ip6iter->ip, ntoabuf));
 					ret = max(ret,1);
 				}
 				if (xml)
