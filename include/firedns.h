@@ -123,9 +123,6 @@ int firedns_getname6(firedns_state* self, const struct in6_addr* ip);
 int firedns_getcname(firedns_state* self, const char* name);
 char *firedns_getresult(firedns_state* self, const int fd);
 
-/* buffer pass-in non-blocking functions */
-char *firedns_getresult_s(firedns_state* self, const int fd);
-
 /* low-timeout blocking functions */
 struct in_addr *firedns_resolveip4(firedns_state* self, const char* name);
 struct firedns_ip4list *firedns_resolveip4list(firedns_state* self, const char* name);
