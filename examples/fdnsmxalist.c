@@ -52,6 +52,8 @@ int main(int argc, char **argv) {
 	return 1;
 #else
 	struct firedns_mxlist *iter, *list;
+	struct in6_addr buf6;
+	struct in_addr buf4;
 	int ret = 0;
 	int xml = 0;
 
@@ -95,7 +97,7 @@ int main(int argc, char **argv) {
 				printf("ERROR: %s is a CNAME for %s\n",iter->name,iter->cname);
 			ret = max(ret,3);
 		}
-		if (firedns_aton4(iter->name) != NULL) {
+		if (firedns_aton4(iter->name, &buf4) != NULL) {
 			if (xml)
 				printf("		<error type=\"ip4_mx\" />\n");
 			else
@@ -103,7 +105,7 @@ int main(int argc, char **argv) {
 			ret = max(ret,4);
 			goto wrap;
 		}
-		if (firedns_aton6(iter->name) != NULL) {
+		if (firedns_aton6(iter->name, &buf6) != NULL) {
 			if (xml)
 				printf("		<error type=\"ip6_mx\" />\n");
 			else

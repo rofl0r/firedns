@@ -100,8 +100,6 @@ struct in6_addr *firedns_aton6(const char* ipstring);
 char *firedns_ntoa4(const struct in_addr* ip);
 char *firedns_ntoa6(const struct in6_addr* ip);
 
-struct in_addr *firedns_aton4_s(const char* ipstring, struct in_addr* ip);
-struct in6_addr *firedns_aton6_s(const char* ipstring, struct in6_addr* ip);
 char *firedns_ntoa4_s(const struct in_addr* ip, char* result);
 char *firedns_ntoa6_s(const struct in6_addr* ip, char* result);
 

@@ -3,6 +3,8 @@
 
 int main(int argc, char **argv) {
 	char *result;
+	struct in6_addr buf6;
+	struct in_addr buf4;
 	struct in_addr *binip;
 	struct in6_addr *binip6;
 	firedns_state dns, *d = &dns;
@@ -14,9 +16,9 @@ int main(int argc, char **argv) {
 	
 	firedns_init(d);
 	
-	binip6 = firedns_aton6(argv[1]);
+	binip6 = firedns_aton6(argv[1], &buf6);
 	if (binip6 == NULL) {
-		binip = firedns_aton4(argv[1]);
+		binip = firedns_aton4(argv[1], &buf4);
 		if (binip == NULL) {
 			fprintf(stderr,"invalid IP address.\n");
 			return 2;

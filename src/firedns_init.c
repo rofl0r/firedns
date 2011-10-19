@@ -23,14 +23,14 @@ void firedns_init(firedns_state* self) {
 				i++;
 #ifdef HAVE_IPV6
 			if (i6 < FDNS_MAX) {
-				if (firedns_aton6_s(&f->buf[i],&addr6) != NULL) {
+				if (firedns_aton6(&f->buf[i],&addr6) != NULL) {
 					memcpy(&self->servers6[(self->i6)++], &addr6, sizeof(struct in6_addr));
 					continue;
 				}
 			}
 #endif
 			if (self->i4 < FDNS_MAX) {
-				if (firedns_aton4_s(&f->buf[i],&addr4) != NULL)
+				if (firedns_aton4(&f->buf[i],&addr4) != NULL)
 					memcpy(&self->servers4[(self->i4)++], &addr4, sizeof(struct in_addr));
 			}
 		}
