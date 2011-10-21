@@ -4,7 +4,8 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 	char* result = self->resultbuf;
 	struct s_header h;
 	struct s_connection * restrict c, *prev;
-	int l,i,q,curanswer,o;
+	int i, l, o;
+	unsigned int q, curanswer;
 	struct s_rr_middle rr;
 	unsigned char buffer[sizeof(struct s_header)];
 	unsigned short p;
@@ -103,7 +104,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 	}
 	if (curanswer == h.ancount)
 		return NULL;
-	if (i + rr.rdlength > l)
+	if (i + rr.rdlength > (unsigned) l)
 		return NULL;
 	if (rr.rdlength > 1023)
 		return NULL;
