@@ -27,31 +27,23 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 		self->connection_head = c->next;
 	l = recv(c->fd, buffer, sizeof(struct s_header), 0);
 	firedns_close(self, c->fd);
-	if (l < 12) {
-		firedns_freeconn(self, c);
-		return NULL;
-	}
+	if (l < 12)
+		goto error_handler;
 	firedns_fill_header(&h,buffer,l - 12);
-	if (c->id[0] != h.id[0] || c->id[1] != h.id[1]) {
-		firedns_freeconn(self, c);
-		return NULL; 
-	}
-	if ((h.flags1 & FLAGS1_MASK_QR) == 0) {
-		firedns_freeconn(self, c);
-		return NULL;
-	}
-	if ((h.flags1 & FLAGS1_MASK_OPCODE) != 0) {
-		firedns_freeconn(self, c);
-		return NULL;
-	}
-	if ((h.flags2 & FLAGS2_MASK_RCODE) != 0) {
-		firedns_freeconn(self, c);
-		return NULL;
-	}
-	if (h.ancount < 1)  { 
-		firedns_freeconn(self, c);
-		return NULL;
-	}
+	if (c->id[0] != h.id[0] || c->id[1] != h.id[1])
+		goto error_handler;
+	
+	if ((h.flags1 & FLAGS1_MASK_QR) == 0)
+		goto error_handler;
+	
+	if ((h.flags1 & FLAGS1_MASK_OPCODE) != 0)
+		goto error_handler;
+	
+	if ((h.flags2 & FLAGS2_MASK_RCODE) != 0) 
+		goto error_handler;
+	
+	if (h.ancount < 1)  
+		goto error_handler;
 	
 	i = 0;
 	q = 0;
@@ -84,10 +76,9 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 					i += h.payload[i] + 1; 
 			}
 		}
-		if (l - i < 10) {
-			firedns_freeconn(self, c);
-			return NULL;
-		}
+		if (l - i < 10)
+			goto error_handler;
+		
 		firedns_fill_rr(&rr,&h.payload[i]);
 		i += 10;
 		if (rr.type != c->type) {
@@ -102,12 +93,16 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 		}
 		break;
 	}
+	// XXX these 3 did not free the conn!
 	if (curanswer == h.ancount)
-		return NULL;
+		goto error_handler;
+
 	if (i + rr.rdlength > (unsigned) l)
-		return NULL;
+		goto error_handler;
+
 	if (rr.rdlength > 1023)
-		return NULL;
+		goto error_handler;
+
 	switch (rr.type) {
 		case FDNS_QRY_PTR:
 		case FDNS_QRY_CNAME:
@@ -185,8 +180,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 							}
 						}
 						if (l - i < 10) {
-							firedns_freeconn(self, c);
-							return NULL;
+							goto error_handler;
 						}
 						firedns_fill_rr(&rr,&h.payload[i]);
 						i += 10;
@@ -244,8 +238,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 							unsigned char l;
 							l = trailer[0];
 							if (trailer + l > end) { 
-								firedns_freeconn(self, c);
-								return NULL;
+								goto error_handler;
 							}
 							memcpy(&txtlist->txt[o],&trailer[1],l);
 							o += l; 
@@ -273,8 +266,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
 					i += 10;
@@ -292,8 +284,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 				while (trailer < end) {
 					unsigned char l = trailer[0];
 					if (trailer + l > end) { 
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					memcpy(&result[o],&trailer[1],l);
 					o += l; 
@@ -311,8 +302,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 					if (rr.class != 1)
 						break;
 					if (rr.rdlength != 4) {
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					memcpy(&alist->ip,&h.payload[i],4);
 					if (++curanswer >= h.ancount)
@@ -335,8 +325,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
 					i += 10;
@@ -358,8 +347,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 					if (rr.class != 1)
 						break;
 					if (rr.rdlength != 16) {
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					memcpy(&alist->ip,&h.payload[i],16);
 					if (++curanswer >= h.ancount)
@@ -382,8 +370,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 						}
 					}
 					if (l - i < 10) {
-						firedns_freeconn(self, c);
-						return NULL;
+						goto error_handler;
 					}
 					firedns_fill_rr(&rr,&h.payload[i]);
 					i += 10;
@@ -404,5 +391,8 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 	}
 	firedns_freeconn(self, c);
 	return result;
+	error_handler:
+	firedns_freeconn(self, c);
+	return NULL;
 }
 
