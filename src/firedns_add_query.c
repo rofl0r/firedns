@@ -3,7 +3,7 @@
 struct s_connection *firedns_add_query(firedns_state* self, struct s_header * const h) { 
 	struct s_connection* s;
 	s = firedns_getconn(self);
-	if(!s) return s;
+	if(!s) return NULL;
 	
 	h->id[0] = s->id[0] = rand() % 255; 
 	h->id[1] = s->id[1] = rand() % 255;
