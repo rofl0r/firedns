@@ -1,6 +1,6 @@
 #include "firedns_internal.h"
 
-int firedns_build_query_payload(const char * const name, const unsigned short rr, const unsigned short class, unsigned char * const payload) { 
+int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short dclass, unsigned char* payload) { 
 	short payloadpos;
 	const char * tempchr, * tempchr2;
 	unsigned short l;
@@ -29,7 +29,7 @@ int firedns_build_query_payload(const char * const name, const unsigned short rr
 		return -1;
 	l = htons(rr);
 	memcpy(&payload[payloadpos],&l,2);
-	l = htons(class);
+	l = htons(dclass);
 	memcpy(&payload[payloadpos + 2],&l,2);
 	return payloadpos + 4;
 }

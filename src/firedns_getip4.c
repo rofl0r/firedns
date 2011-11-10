@@ -10,7 +10,7 @@ int firedns_getip4(firedns_state* self, const char* name) {
 	s = firedns_add_query(self, &h);
 	if (s == NULL)
 		return -1;
-	s->class = 1;
+	s->dclass = 1;
 	s->type = FDNS_QRY_A;
 	if (firedns_send_requests(self, &h,s,l) == -1)
 		return -1;

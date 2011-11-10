@@ -40,7 +40,7 @@ struct in6_addr {
 struct s_connection { 
 	struct s_connection *next; 
 	unsigned char id[2]; 
-	unsigned int class;
+	unsigned int dclass;
 	unsigned int type;
 	int want_list;
 	int fd; 

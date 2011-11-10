@@ -31,7 +31,7 @@
 
 struct s_rr_middle {
 	unsigned int type;
-	unsigned int class;
+	unsigned int dclass;
 	unsigned long ttl;
 	unsigned int rdlength;
 };
@@ -68,7 +68,7 @@ void firedns_empty_header(unsigned char * const  output, const struct s_header *
 void firedns_close(firedns_state* self, int fd);
 int firedns_send_requests(firedns_state* self, const struct s_header *  const h, const struct s_connection *  const s, const int l);
 struct s_connection *firedns_add_query(firedns_state* self, struct s_header *  const h);
-int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short class, unsigned char * const payload);
+int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short dclass, unsigned char* payload);
 
 //RcB: DEP "*.c"
 

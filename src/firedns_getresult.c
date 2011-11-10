@@ -86,7 +86,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 			i += rr.rdlength;
 			continue;
 		}
-		if (rr.class != c->class) {
+		if (rr.dclass != c->dclass) {
 			curanswer++;
 			i += rr.rdlength;
 			continue;
@@ -186,7 +186,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 						i += 10;
 						if (rr.type != FDNS_QRY_MX)
 							break;
-						if (rr.class != 1)
+						if (rr.dclass != 1)
 							break;
 						mxa->next = (struct firedns_mxlist *) firedns_align((((char *) mxa) + sizeof(struct firedns_mxlist) + o));
 						mxa = mxa->next;
@@ -225,7 +225,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 				while ((char *)txtlist - (char *)result < 700) {
 					if (rr.type != FDNS_QRY_TXT)
 						break;
-					if (rr.class != 1)
+					if (rr.dclass != 1)
 						break;
 					{
 						unsigned char *end, *trailer;
@@ -299,7 +299,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 				while ((char *)alist - (char *)result < 700) {
 					if (rr.type != FDNS_QRY_A)
 						break;
-					if (rr.class != 1)
+					if (rr.dclass != 1)
 						break;
 					if (rr.rdlength != 4) {
 						goto error_handler;
@@ -344,7 +344,7 @@ char *firedns_getresult(firedns_state* self, const int fd) {
 				while ((char *)alist - (char *)result < 700) {
 					if (rr.type != FDNS_QRY_AAAA)
 						break;
-					if (rr.class != 1)
+					if (rr.dclass != 1)
 						break;
 					if (rr.rdlength != 16) {
 						goto error_handler;
