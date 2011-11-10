@@ -8,16 +8,18 @@ char *firedns_resolvemx(firedns_state* self, const char* name) {
 	struct timeval tv;
 	for (t = 0; t < FIREDNS_TRIES; t++) {
 		fd = firedns_getmx(self, name);
-		if (fd == -1)
+		if (fd == -1) {
 			return NULL;
+		}
 		tv.tv_sec = 5;
 		tv.tv_usec = 0;
 		FD_ZERO(&s);
 		FD_SET(fd,&s);
 		i = select(fd + 1,&s,NULL,NULL,&tv);
 		ret = firedns_getresult(self, fd);
-		if (ret != NULL || i != 0)
+		if (ret != NULL || i != 0) {
 			return ret;
+		}
 	}
 	return NULL;
 }
