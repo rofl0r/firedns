@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include "firedns_internal.h"
 
 struct firedns_ip4list *firedns_resolveip4list(firedns_state* self, const char* name) { 

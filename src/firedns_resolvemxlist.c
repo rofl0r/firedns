@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include "firedns_internal.h"
 
 struct firedns_mxlist *firedns_resolvemxlist(firedns_state* self, const char* name) {

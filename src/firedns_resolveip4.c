@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include "firedns_internal.h"
 #include "../../lib/include/strlib.h"
 

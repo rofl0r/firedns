@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include "firedns_internal.h"
 
 char *firedns_resolvecname(firedns_state* self, const char* name) {

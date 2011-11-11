@@ -1,3 +1,4 @@
+#include <sys/time.h>
 #include "firedns_internal.h"
 
 struct in6_addr *firedns_resolveip6(firedns_state* self, const char* name) {
