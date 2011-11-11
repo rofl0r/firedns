@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 void firedns_empty_header(unsigned char * const restrict output, const struct s_header * const restrict header, const int l) {
 	output[0] = header->id[0];

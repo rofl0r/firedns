@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 struct in_addr *firedns_aton4(const char* ipstring, struct in_addr* ip) { 
 	unsigned char *myip;

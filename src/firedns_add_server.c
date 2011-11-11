@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 /* returns 0 on success, else the number of fails (2 possible, one for ipv6, one for ipv4 */
 int firedns_add_server(firedns_state* self, char* server) { 

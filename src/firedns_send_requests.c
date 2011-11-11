@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 int firedns_send_requests(firedns_state* self, const struct s_header * restrict const h, const struct s_connection * restrict const s, const int l) { 
 	int i;

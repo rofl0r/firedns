@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 const char hex_decode_table[] = {
 	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,

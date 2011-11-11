@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 char *firedns_getresult(firedns_state* self, const int fd) { 
 	char* result = self->resultbuf;

@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <string.h>
 
 int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short dclass, unsigned char* payload) { 
 	short payloadpos;
