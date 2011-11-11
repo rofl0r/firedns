@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
-#include <fcntl.h>
 #include "../include/firedns.h"
 
 #define _FIREDNS_C
