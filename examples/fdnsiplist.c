@@ -11,7 +11,10 @@ int main(int argc, char **argv) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
 		return 2;
 	}
+
 	firedns_init(d);
+	firedns_add_servers_from_resolve_conf(d);
+
 	iter = firedns_resolveip4list(d, argv[1]);
 
 	if (iter == NULL)

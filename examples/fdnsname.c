@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
 	}
 	
 	firedns_init(d);
+	firedns_add_servers_from_resolve_conf(d);
 	
 	binip6 = firedns_aton6(argv[1], &buf6);
 	if (binip6 == NULL) {

@@ -1,4 +1,5 @@
 /*
+
 firedns.h - firedns library declarations
 Copyright (C) 2002 Ian Gulliver
 
@@ -14,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 */
 
 #ifndef _FIREDNS_H
@@ -94,13 +96,31 @@ struct firedns_txtlist {
 	struct firedns_txtlist *next;
 };
 
+/******* ATTENTION: 
+ * 
+ *  after setting up your firedns_state using firedns_init,
+ *  you have to either call firedns_add_servers_from_resolve_conf() or
+ *  add single dns servers using firedns_add_server() 
+ *  before you call any other firedns function! 
+ * 
+ ******************/
+
+
 /* state-free helper functions */
 struct in_addr *firedns_aton4(const char* ipstring, struct in_addr* ip);
 struct in6_addr *firedns_aton6(const char* ipstring, struct in6_addr* ip);
 char *firedns_ntoa4(const struct in_addr* ip, char* result);
 char *firedns_ntoa6(const struct in6_addr* ip, char* result);
 
+/* initialize the firedns struct */
 void firedns_init(firedns_state* self);
+
+/* add a name server to the internal list.
+ * returns 0 on success, else the number of fails (2 possible, one for ipv6, one for ipv4) */
+int firedns_add_server(firedns_state* self, char* server);
+/* reads /etc/resolv.conf and calls firedns_add_server for each entry */
+int firedns_add_servers_from_resolve_conf(firedns_state* self);
+
 struct s_connection* firedns_getconn(firedns_state* self);
 void firedns_freeconn(firedns_state* self, struct s_connection* conn);
 

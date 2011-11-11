@@ -12,6 +12,8 @@ int main(int argc, char **argv) {
 	}
 	
 	firedns_init(d);
+	firedns_add_servers_from_resolve_conf(d);
+
 	iter = firedns_resolvemxlist(d, argv[1]);
 
 	if (iter == NULL)
