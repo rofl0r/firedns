@@ -3,7 +3,6 @@
 #include <sys/socket.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <errno.h>
 #include "../include/firedns.h"
 
