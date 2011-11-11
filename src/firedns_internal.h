@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include "../include/firedns.h"
 
 #define _FIREDNS_C

@@ -1,5 +1,6 @@
-#include <sys/time.h>
 #include "firedns_internal.h"
+#include <unistd.h>
+#include <sys/time.h>
 
 char *firedns_resolvename4(firedns_state* self, const struct in_addr* ip) {
 	int fd;

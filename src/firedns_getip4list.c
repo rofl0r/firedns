@@ -1,4 +1,5 @@
 #include "firedns_internal.h"
+#include <unistd.h>
 
 int firedns_getip4list(firedns_state* self, const char* name) { 
 	struct s_header h;

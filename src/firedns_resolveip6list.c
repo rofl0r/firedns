@@ -1,5 +1,6 @@
-#include <sys/time.h>
 #include "firedns_internal.h"
+#include <unistd.h>
+#include <sys/time.h>
 
 struct firedns_ip6list *firedns_resolveip6list(firedns_state* self, const char* name) { 
 	int fd;
