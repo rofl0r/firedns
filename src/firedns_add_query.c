@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "firedns_internal.h"
 
 struct s_connection *firedns_add_query(firedns_state* self, struct s_header * const h) { 

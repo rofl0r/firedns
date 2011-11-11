@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "firedns_internal.h"
 
 void firedns_free_mxalist(struct firedns_mxlist *list) {
