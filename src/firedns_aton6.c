@@ -20,7 +20,7 @@ const char hex_decode_table[] = {
 	16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16
 };
 
-int firestring_hextoi(const char* input) {
+static int firestring_hextoi(const char* input) {
 	char o1, o2;
 	o1 = hex_decode_table[(int)input[0]];
 	if (o1 == 16)
