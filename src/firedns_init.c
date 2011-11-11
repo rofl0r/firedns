@@ -22,7 +22,7 @@ void firedns_init(firedns_state* self) {
 			while (i < f->len && (f->buf[i] == ' ' || f->buf[i] == '\t'))
 				i++;
 #ifdef HAVE_IPV6
-			if (i6 < FDNS_MAX) {
+			if (self->i6 < FDNS_MAX) {
 				if (firedns_aton6(&f->buf[i],&addr6) != NULL) {
 					memcpy(&self->servers6[(self->i6)++], &addr6, sizeof(struct in6_addr));
 					continue;
