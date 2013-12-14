@@ -10,11 +10,11 @@ int firedns_send_requests(firedns_state* self, const struct s_header * restrict 
 #endif
 	firedns_empty_header(payload,h,l);
 #ifdef HAVE_IPV6
-	
-	if (i6 > 0 && s->v6 == 1) {
+
+	if (self->i6 > 0 && s->v6 == 1) {
 		for (i = 0; i < self->i6; i++) {
 			memset(&addr6,0,sizeof(addr6));
-			memcpy(&addr6.sin6_addr,&servers6[i],sizeof(addr6.sin6_addr));
+			memcpy(&addr6.sin6_addr,&self->servers6[i],sizeof(addr6.sin6_addr));
 			addr6.sin6_family = AF_INET6;
 			addr6.sin6_port = htons(FDNS_PORT);
 			sendto(s->fd, payload, l + 12, 0, (struct sockaddr *) &addr6, sizeof(addr6));
@@ -23,18 +23,18 @@ int firedns_send_requests(firedns_state* self, const struct s_header * restrict 
 #endif
 	for (i = 0; i < self->i4; i++) {
 #ifdef HAVE_IPV6
-		
+
 		if (s->v6 == 1) {
 			memset(&addr6,0,sizeof(addr6));
 			memcpy(addr6.sin6_addr.s6_addr,"\0\0\0\0\0\0\0\0\0\0\xff\xff",12);
-			memcpy(&addr6.sin6_addr.s6_addr[12],&servers4[i].s_addr,4);
+			memcpy(&addr6.sin6_addr.s6_addr[12],&self->servers4[i].s_addr,4);
 			addr6.sin6_family = AF_INET6;
 			addr6.sin6_port = htons(FDNS_PORT);
 			sendto(s->fd, payload, l + 12, 0, (struct sockaddr *) &addr6, sizeof(addr6));
 			continue;
 		}
 #endif
-		
+
 		memset(&addr4,0,sizeof(addr4));
 		memcpy(&addr4.sin_addr,&self->servers4[i],sizeof(addr4.sin_addr));
 		addr4.sin_family = AF_INET;

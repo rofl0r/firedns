@@ -23,7 +23,7 @@ struct s_connection *firedns_add_query(firedns_state* self, struct s_header * co
 
 #ifdef HAVE_IPV6
 	s->v6 = 0;
-	if (i6 > 0) {
+	if (self->i6 > 0) {
 		s->fd = socket(PF_INET6, SOCK_DGRAM, 0);
 		if (s->fd != -1) {
 			if (fcntl(s->fd, F_SETFL, O_NONBLOCK) != 0) {
