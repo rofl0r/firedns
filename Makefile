@@ -22,7 +22,10 @@ TESTSRCS := $(sort $(wildcard tests/*.c))
 TESTOBJS := $(TESTSRCS:.c=.o)
 TESTBINS := $(TESTSRCS:.c=.out)
 
-CFLAGS  = -Os -std=c99 -D_XOPEN_SOURCE=700 -pipe
+# if you want to compile without IPV6 support for smaller linkage, add
+# CFLAGS += -UHAVE_IPV6
+# to your config.mak
+CFLAGS  = -Os -std=c99 -D_XOPEN_SOURCE=700 -pipe -DHAVE_IPV6
 INC     = -I./include
 AR      = $(CROSS_COMPILE)ar
 RANLIB  = $(CROSS_COMPILE)ranlib
