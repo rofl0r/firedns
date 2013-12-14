@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 700 /* dprintf */
 #include <stdio.h>
 #include "../include/firedns.h"
 
