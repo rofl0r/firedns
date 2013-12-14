@@ -1,9 +1,12 @@
 FireDNS Library
 ---------------
-(c) 2002 Ian Gulliver under the GNU Public License, Version 2.
+(c) 2002 Ian Gulliver, (C) 2011, 2013 rofl0r
+
+GNU Public License, Version 2.
 See GPL for more details.
 
-From libfiredns(3):
+the code written by rofl0r is dual-licensed under LGPL 2.1+,
+and GPL2+.
 
 libfiredns is a library for handling asynchronous DNS
 requests.  It provides a very simple interface for sending
@@ -13,5 +16,29 @@ timeouts than the stock functions and tend to be faster
 because they send requests to all configured system
 nameservers at the same time.
 
+this version here differs from the original in several ways:
+1) doesn't depend on firestring and firemake
+2) no global state
+3) factored and optimized for small static linkage
+4) can be combined with libulz for even smaller static linkage (optional)
+5) no dynamic allocation to avoid linking in malloc implementations
+   (the code in firedns_add_servers_from_resolve_conf(), unless USE_LIBULZ
+    is defined, uses FILE* based stdio functions though which cannot be 
+    implemented without malloc().
+    if you want to avoid the dependency, you can add your own servers
+    instead of parsing resolv.conf, for example 8.8.8.8)
+
+when to use it ?
+- if you feel your libc's DNS implementation is too slow for you,
+- if you feel your libc's DNS implementation pulls in too much code 
+  into static binaries,
+- if you need additional functionality such as MX records,
+...
+
+
+Quote from original author:
 If you have questions or comments, you can reach me at
 ian@penguinhosting.net.
+
+whether that email address still works, is another question.
+for this project, use the github issue tracker for communication.
