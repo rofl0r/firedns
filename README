@@ -27,6 +27,8 @@ this version here differs from the original in several ways:
     implemented without malloc().
     if you want to avoid the dependency, you can add your own servers
     instead of parsing resolv.conf, for example 8.8.8.8)
+6) allows to define the used nameservers manually instead of relying on
+   an existing resolv.conf.
 
 when to use it ?
 - if you feel your libc's DNS implementation is too slow for you,
