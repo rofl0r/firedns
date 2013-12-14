@@ -7,7 +7,7 @@
 #include <ctype.h>
 #endif
 
-int firedns_add_servers_from_resolve_conf(firedns_state* self) {
+int firedns_add_servers_from_resolv_conf(firedns_state* self) {
 	size_t i;
 	int fails = 0;
 

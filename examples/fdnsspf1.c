@@ -5,7 +5,7 @@
 int main(int argc, char **argv) {
 	struct firedns_txtlist *iter;
 	char *spfrecord = NULL;
-	firedns_state dns, *d = &dns; 
+	firedns_state dns, *d = &dns;
 
 	if (argc != 2) {
 		fprintf(stderr,"usage: %s <hostname>\n",argv[0]);
@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 	}
 
 	firedns_init(d);
-	firedns_add_servers_from_resolve_conf(d);
+	firedns_add_servers_from_resolv_conf(d);
 
 	iter = firedns_resolvetxtlist(d, argv[1]);
 

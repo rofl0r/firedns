@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 		return 2;
 	}
 	firedns_init(d);
-	firedns_add_servers_from_resolve_conf(d);
+	firedns_add_servers_from_resolv_conf(d);
 
 	binip6 = firedns_aton6(argv[1], &buf6);
 	if (binip6 == NULL) {

@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 	}
 
 	firedns_init(d);
-	firedns_add_servers_from_resolve_conf(d);
+	firedns_add_servers_from_resolv_conf(d);
 
 	result = firedns_resolveip6(d, argv[1]);
 	if (result) {

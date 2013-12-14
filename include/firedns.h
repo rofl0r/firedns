@@ -99,7 +99,7 @@ struct firedns_txtlist {
 /******* ATTENTION: 
  * 
  *  after setting up your firedns_state using firedns_init,
- *  you have to either call firedns_add_servers_from_resolve_conf() or
+ *  you have to either call firedns_add_servers_from_resolv_conf() or
  *  add single dns servers using firedns_add_server() 
  *  before you call any other firedns function! 
  * 
@@ -119,7 +119,7 @@ void firedns_init(firedns_state* self);
  * returns 0 on success, else the number of fails (2 possible, one for ipv6, one for ipv4) */
 int firedns_add_server(firedns_state* self, char* server);
 /* reads /etc/resolv.conf and calls firedns_add_server for each entry */
-int firedns_add_servers_from_resolve_conf(firedns_state* self);
+int firedns_add_servers_from_resolv_conf(firedns_state* self);
 
 struct s_connection* firedns_getconn(firedns_state* self);
 void firedns_freeconn(firedns_state* self, struct s_connection* conn);

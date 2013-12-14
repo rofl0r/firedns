@@ -258,7 +258,7 @@ void do_firedns_dnsbl_lookup(firedns_state *state, char * ip, char * string) {
 int main() {
 	firedns_state state, *s = &state;
         firedns_init(s);
-        firedns_add_servers_from_resolve_conf(s);
+        firedns_add_servers_from_resolv_conf(s);
 
 	do_firedns_aton4(s, "1.2.3.4");
 	do_firedns_aton4(s, "101.102.103.104");

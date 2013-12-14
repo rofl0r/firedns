@@ -46,7 +46,7 @@ int main() {
 	double libc, fire;
 	struct firedns_state state, *s = &state;
 	firedns_init(s);
-	firedns_add_servers_from_resolve_conf(s);
+	firedns_add_servers_from_resolv_conf(s);
 
 	printf("Testing %d firedns_resolveip4list(\"%s\"):\n",TESTS,TEST_HOST);
 	start_time();

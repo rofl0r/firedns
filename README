@@ -22,7 +22,7 @@ this version here differs from the original in several ways:
 3) factored and optimized for small static linkage
 4) can be combined with libulz for even smaller static linkage (optional)
 5) no dynamic allocation to avoid linking in malloc implementations
-   (the code in firedns_add_servers_from_resolve_conf(), unless USE_LIBULZ
+   (the code in firedns_add_servers_from_resolv_conf(), unless USE_LIBULZ
     is defined, uses FILE* based stdio functions though which cannot be 
     implemented without malloc().
     if you want to avoid the dependency, you can add your own servers
