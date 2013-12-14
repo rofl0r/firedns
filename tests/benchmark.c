@@ -11,7 +11,7 @@
 #include <netdb.h>
 #include "../include/firedns.h"
 
-#define TESTS 10000
+#define TESTS 100
 #define TEST_HOST "aol.com"
 
 struct timeval tv;
