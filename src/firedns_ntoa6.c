@@ -1,10 +1,13 @@
-#include "../../lib/include/strlib.h"
 #include "firedns_internal.h"
 #include <string.h>
+#include <stdio.h>
+#ifdef USE_LIBULZ
+#include <ulz/stdio-repl.h>
+#endif
 
 char *firedns_ntoa6(const struct in6_addr * restrict const ip, char * restrict const result) {
 	char *c;
-	ulz_snprintf(result, 48, "%x:%x:%x:%x:%x:%x:%x:%x",
+	snprintf(result, 48, "%x:%x:%x:%x:%x:%x:%x:%x",
 			ntohs(*((unsigned short *)&ip->s6_addr[0])),
 			ntohs(*((unsigned short *)&ip->s6_addr[2])),
 			ntohs(*((unsigned short *)&ip->s6_addr[4])),

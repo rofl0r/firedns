@@ -1,12 +1,15 @@
 #include "firedns_internal.h"
-#include "../../lib/include/strlib.h"
+#include <stdio.h>
+#ifdef USE_LIBULZ
+#include <stdio-repl.h>
+#endif
 
 int firedns_getname6(firedns_state* self, const struct in6_addr* ip) {
 	char query[512];
 	struct s_header h;
 	struct s_connection* s;
 	int l;
-	ulz_snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.int",
+	snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.int",
 			ip->s6_addr[15] & 0x0f,
 			(ip->s6_addr[15] & 0xf0) >> 4,
 			ip->s6_addr[14] & 0x0f,
@@ -44,7 +47,7 @@ int firedns_getname6(firedns_state* self, const struct in6_addr* ip) {
 	if (l == -1)
 		return -1;
 	s = firedns_add_query(self, &h);
-	if (s == NULL)
+	if (!s)
 		return -1;
 	s->dclass = 1;
 	s->type = FDNS_QRY_PTR;
