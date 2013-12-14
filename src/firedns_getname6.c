@@ -9,7 +9,7 @@ int firedns_getname6(firedns_state* self, const struct in6_addr* ip) {
 	struct s_header h;
 	struct s_connection* s;
 	int l;
-	snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.int",
+	snprintf(query, sizeof(query), "%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.ip6.arpa",
 			ip->s6_addr[15] & 0x0f,
 			(ip->s6_addr[15] & 0xf0) >> 4,
 			ip->s6_addr[14] & 0x0f,
