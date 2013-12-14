@@ -5,12 +5,12 @@
 
 #include "firedns_internal.h"
 
-struct s_connection *firedns_add_query(firedns_state* self, struct s_header * const h) { 
+struct s_connection *firedns_add_query(firedns_state* self, struct s_header * const h) {
 	struct s_connection* s;
 	s = firedns_getconn(self);
 	if(!s) return NULL;
-	
-	h->id[0] = s->id[0] = rand() % 255; 
+
+	h->id[0] = s->id[0] = rand() % 255;
 	h->id[1] = s->id[1] = rand() % 255;
 	h->flags1 = 0 | FLAGS1_MASK_RD;
 	h->flags2 = 0;
@@ -18,9 +18,9 @@ struct s_connection *firedns_add_query(firedns_state* self, struct s_header * co
 	h->ancount = 0;
 	h->nscount = 0;
 	h->arcount = 0;
-	
+
 	s->want_list = 0;
-	
+
 #ifdef HAVE_IPV6
 	s->v6 = 0;
 	if (i6 > 0) {
@@ -68,7 +68,7 @@ struct s_connection *firedns_add_query(firedns_state* self, struct s_header * co
 #ifdef HAVE_IPV6
 	}
 #endif
-	
+
 	s->next = self->connection_head;
 	self->connection_head = s;
 	if (self->wantclose == 1) {
