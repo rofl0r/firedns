@@ -1,6 +1,9 @@
 #define _XOPEN_SOURCE 700 /* dprintf */
 #include <stdio.h>
 #include "../include/firedns.h"
+#ifdef USE_LIBULZ
+#include <ulz/stdio-repl.h>
+#endif
 
 int main(int argc, char **argv) {
 	struct in_addr *result;
@@ -13,7 +16,7 @@ int main(int argc, char **argv) {
 	}
 
 	firedns_init(d);
-	firedns_add_servers_from_resolv_conf(d);
+	firedns_add_server(d, "8.8.8.8");
 
 	result = firedns_resolveip4(d, argv[1]);
 	if (result) {
