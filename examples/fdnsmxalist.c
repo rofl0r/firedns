@@ -48,6 +48,8 @@ int checkjunk6(struct in6_addr *ip) {
  */
 int main(int argc, char **argv) {
 #if 1
+	(void) argc; (void) argv;
+	#warning "mxalist not ported yet"
 	printf("error. mxalist not ported yet");
 	return 1;
 #else
