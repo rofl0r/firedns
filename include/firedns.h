@@ -42,13 +42,11 @@ struct in6_addr {
 struct s_connection {
 	struct s_connection *next;
 	unsigned char id[2];
+	signed char v6;
 	unsigned int dclass;
 	unsigned int type;
 	int want_list;
 	int fd;
-#ifdef HAVE_IPV6
-	int v6;
-#endif
 };
 
 typedef struct firedns_state {
