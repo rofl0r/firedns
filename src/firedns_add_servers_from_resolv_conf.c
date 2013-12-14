@@ -17,7 +17,7 @@ int firedns_add_servers_from_resolv_conf(firedns_state* self) {
 	if(fileparser_open(f, FDNS_CONFIG_FBCK)) return -1;
 
 	#define LINE f->buf
-	#define LINSIZE f->len
+	#define LINESIZE f->len
 
 	while(!fileparser_readline(f)) {
 		if (strncmp(LINE, "nameserver", 10) == 0) {

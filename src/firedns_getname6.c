@@ -1,7 +1,7 @@
 #include "firedns_internal.h"
 #include <stdio.h>
 #ifdef USE_LIBULZ
-#include <stdio-repl.h>
+#include <ulz/stdio-repl.h>
 #endif
 
 int firedns_getname6(firedns_state* self, const struct in6_addr* ip) {

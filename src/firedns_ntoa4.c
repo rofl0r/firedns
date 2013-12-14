@@ -1,7 +1,7 @@
 #include "firedns_internal.h"
 #include <stdio.h>
 #ifdef USE_LIBULZ
-#include <stdio-repl.h>
+#include <ulz/stdio-repl.h>
 #endif
 
 char *firedns_ntoa4(const struct in_addr* ip, char* result) {
