@@ -1,3 +1,5 @@
+#undef _GNU_SOURCE
+#define _GNU_SOURCE
 #include "firedns_internal.h"
 #include <string.h>
 #include <stdio.h>
@@ -8,14 +10,14 @@
 char *firedns_ntoa6(const struct in6_addr * restrict const ip, char * restrict const result) {
 	char *c;
 	snprintf(result, 48, "%x:%x:%x:%x:%x:%x:%x:%x",
-			ntohs(*((unsigned short *)&ip->s6_addr[0])),
-			ntohs(*((unsigned short *)&ip->s6_addr[2])),
-			ntohs(*((unsigned short *)&ip->s6_addr[4])),
-			ntohs(*((unsigned short *)&ip->s6_addr[6])),
-			ntohs(*((unsigned short *)&ip->s6_addr[8])),
-			ntohs(*((unsigned short *)&ip->s6_addr[10])),
-			ntohs(*((unsigned short *)&ip->s6_addr[12])),
-			ntohs(*((unsigned short *)&ip->s6_addr[14])));
+			ntohs(ip->s6_addr16[0]),
+			ntohs(ip->s6_addr16[1]),
+			ntohs(ip->s6_addr16[2]),
+			ntohs(ip->s6_addr16[3]),
+			ntohs(ip->s6_addr16[4]),
+			ntohs(ip->s6_addr16[5]),
+			ntohs(ip->s6_addr16[6]),
+			ntohs(ip->s6_addr16[7]));
 	c = strstr(result,":0:");
 	if (c != NULL) {
 		memmove(c+1,c+2,strlen(c+2) + 1);
