@@ -1,15 +1,25 @@
 #include "../include/firedns.h"
 
+#if _STDC_VERSION < 199901L
+#if defined (restrict)
+#elif __GNUC__ >= 4
+#define restrict __restrict
+#else
+#error "this code needs to be compiled with -std=c99 or comparable flag that makes the restrict keyword available" \
+       " alternatively you can add -Drestrict= to your CFLAGS if your compiler doesn't support C99"
+#endif
+#endif
+
 #define _FIREDNS_C
 #define max(a,b) (a > b ? a : b)
-                  
-#define FDNS_CONFIG_FBCK     "/etc/resolv.conf"    
-#define FDNS_PORT            53                    
-#define FDNS_QRY_A            1                    
-#define FDNS_QRY_AAAA        28                    
-#define FDNS_QRY_PTR         12                    
-#define FDNS_QRY_MX          15                    
-#define FDNS_QRY_TXT         16                    
+
+#define FDNS_CONFIG_FBCK     "/etc/resolv.conf"
+#define FDNS_PORT            53
+#define FDNS_QRY_A            1
+#define FDNS_QRY_AAAA        28
+#define FDNS_QRY_PTR         12
+#define FDNS_QRY_MX          15
+#define FDNS_QRY_TXT         16
 #define FDNS_QRY_CNAME       5
 #define FDNS_MXPS_START 12800
 #define FDNS_MXPS_STOP  13055
@@ -26,11 +36,11 @@ struct s_rr_middle {
 };
 
 #define FIREDNS_POINTER_VALUE 0xc000
-struct s_header { 
+struct s_header {
 	unsigned char id[2];
 	unsigned int flags1;
 #define FLAGS1_MASK_QR 0x80
-#define FLAGS1_MASK_OPCODE 0x78 
+#define FLAGS1_MASK_OPCODE 0x78
 #define FLAGS1_MASK_AA 0x04
 #define FLAGS1_MASK_TC 0x02
 #define FLAGS1_MASK_RD 0x01
@@ -42,7 +52,7 @@ struct s_header {
 	unsigned int ancount;
 	unsigned int nscount;
 	unsigned int arcount;
-	unsigned char payload[512]; 
+	unsigned char payload[512];
 };
 
 extern const char tagstring[] ;
