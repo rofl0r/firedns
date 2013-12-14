@@ -273,18 +273,16 @@ int main() {
 	do_firedns_aton6(s, "fe80::204:5aff:fece:7852");
 	do_firedns_aton6(s, "bah");
 
-	do_firedns_getip4(s, "host.taconic.net");
 	do_firedns_getip4(s, "celery.n.ml.org");
-	do_firedns_getip4(s, "incandescent.mp3revolution.net");
-	do_firedns_getip4(s, "dharr.stu.rpi.edu");
-	do_firedns_getip4(s, "ftp.us.kernel.org");
-	do_firedns_getip4(s, "cool.dk");
+	do_firedns_getip4(s, "pp.info.uni-karlsruhe.de");
+	do_firedns_getip4(s, "ftp.kernel.org");
+	do_firedns_getip4(s, "pokr.com");
 
 	do_firedns_getip6(s, "ftp.stealth.net");
 	do_firedns_getip6(s, "www.ipv6.org");
 	do_firedns_getip6(s, "z.ip6.int");
 
-	do_firedns_gettxt(s, "2.0.0.127.inputs.orbz.org");
+	do_firedns_gettxt(s, "2668.8086.pci.id.ucw.cz");
 	do_firedns_gettxt(s, "2.0.0.127.outputs.orbz.org");
 	do_firedns_gettxt(s, "2.0.0.127.bl.spamcop.net");
 	do_firedns_gettxt(s, "2.0.0.127.relays.ordb.org");
@@ -293,17 +291,17 @@ int main() {
 	do_firedns_getmx(s, "penguinhosting.net");
 	do_firedns_getmx(s, "taconic.net");
 	do_firedns_getmx(s, "microsoft.com");
-	do_firedns_getmx(s, "email.si");
+	do_firedns_getmx(s, "mail.ru");
 	do_firedns_getmx(s, "cool.dk");
 
-	do_firedns_getname4(s, "205.231.144.10");
+	do_firedns_getname4(s, "8.8.8.8");
 	do_firedns_getname4(s, "208.171.237.190");
 	do_firedns_getname4(s,"64.28.67.150");
 	do_firedns_getname4(s, "64.90.162.91");
 
-	do_firedns_getname6(s, "3FFE:0:1:0:0:0:C620:242");
+	do_firedns_getname6(s, "2a00:1450:400c:c05::1b");
 	do_firedns_getname6(s, "2001:660:1180:1:192:134:0:49");
-	do_firedns_getname6(s, "3FFE:50E:0:0:0:0:0:1");
+	do_firedns_getname6(s, "2001:6b0:e:2018::172");
 
 	do_firedns_dnsbl_lookup(s, "127.0.0.2","list.dsbl.org");
 
