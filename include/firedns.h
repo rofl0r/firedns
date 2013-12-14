@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #ifndef _FIREDNS_H
 #define _FIREDNS_H
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -38,8 +39,8 @@ struct s_connection {
 	unsigned char id[2];
 	signed char v6;
 	signed char want_list;
-	unsigned int dclass;
-	unsigned int type;
+	uint16_t dclass;
+	uint16_t type;
 	int fd;
 };
 
