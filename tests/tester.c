@@ -12,23 +12,26 @@
 // also the whole do_ stuff seems to duplicate the library code.
 // it definitely will not compile currently.
 
-
-void do_firedns_aton4(char * string) {
+void do_firedns_aton4(firedns_state *state, char * string) {
+	(void) state;
 	struct in_addr *inaddr4;
 	struct in_addr buf4;
 	fprintf(stderr,"taking firedns_aton4(%s): ",string);
 	inaddr4 = firedns_aton4(string, &buf4);
 	if (inaddr4 == NULL)
 		fprintf(stderr,"got NULL\n");
-	else
+	else {
+		char result[256];
+		firedns_ntoa4(inaddr4, result);
 		fprintf(stderr,"%d.%d.%d.%d/%s\n",((unsigned char *)&inaddr4->s_addr)[0],
 				((unsigned char *)&inaddr4->s_addr)[1],
 				((unsigned char *)&inaddr4->s_addr)[2],
 				((unsigned char *)&inaddr4->s_addr)[3],
-				firedns_ntoa4(inaddr4));
+				result);
+	}
 }
 
-void do_firedns_getip4(char * string) {
+void do_firedns_getip4(firedns_state *state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -37,7 +40,7 @@ void do_firedns_getip4(char * string) {
 	struct in_addr addr4;
 
 	fprintf(stderr,"taking firedns_getip4(%s): ",string);
-	fd = firedns_getip4(string);
+	fd = firedns_getip4(state, string);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -46,16 +49,19 @@ void do_firedns_getip4(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	if (m == NULL)
 		fprintf(stderr,"getting result: (null)\n");
 	else {
 		memcpy(&addr4,m,sizeof(struct in_addr));
-		fprintf(stderr,"getting result: %s\n",firedns_ntoa4(&addr4));
+		char result[256];
+		firedns_ntoa4(&addr4, result);
+		fprintf(stderr,"getting result: %s\n", result);
 	}
 }
 
-void do_firedns_getip6(char * string) {
+void do_firedns_getip6(firedns_state *state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -64,7 +70,7 @@ void do_firedns_getip6(char * string) {
 	struct in6_addr addr6;
 
 	fprintf(stderr,"taking firedns_getip6(%s): ",string);
-	fd = firedns_getip6(string);
+	fd = firedns_getip6(state, string);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -73,16 +79,19 @@ void do_firedns_getip6(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	if (m == NULL)
 		fprintf(stderr,"getting result: (null)\n");
 	else {
 		memcpy(&addr6,m,sizeof(struct in6_addr));
-		fprintf(stderr,"getting result: %s\n",firedns_ntoa6(&addr6));
+		char result[256];
+		firedns_ntoa6(&addr6, result);
+		fprintf(stderr,"getting result: %s\n", result);
 	}
 }
 
-void do_firedns_gettxt(char * string) {
+void do_firedns_gettxt(firedns_state *state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -90,7 +99,7 @@ void do_firedns_gettxt(char * string) {
 	char *m;
 
 	fprintf(stderr,"taking firedns_gettxt(%s): ",string);
-	fd = firedns_gettxt(string);
+	fd = firedns_gettxt(state, string);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -99,11 +108,12 @@ void do_firedns_gettxt(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	fprintf(stderr,"getting result: %s\n",m);
 }
 
-void do_firedns_getmx(char * string) {
+void do_firedns_getmx(firedns_state* state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -111,7 +121,7 @@ void do_firedns_getmx(char * string) {
 	char *m;
 
 	fprintf(stderr,"taking firedns_getmx(%s): ",string);
-	fd = firedns_getmx(string);
+	fd = firedns_getmx(state, string);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -120,11 +130,12 @@ void do_firedns_getmx(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	fprintf(stderr,"getting result: %s\n",m);
 }
 
-void do_firedns_getname4(char * string) {
+void do_firedns_getname4(firedns_state *state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -139,7 +150,7 @@ void do_firedns_getname4(char * string) {
 		fprintf(stderr,"(null)\n");
 		return;
 	}
-	fd = firedns_getname4(addr4);
+	fd = firedns_getname4(state, addr4);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -148,11 +159,12 @@ void do_firedns_getname4(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	fprintf(stderr,"getting result: %s\n",m);
 }
 
-void do_firedns_getname6(char * string) {
+void do_firedns_getname6(firedns_state *state, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -167,7 +179,7 @@ void do_firedns_getname6(char * string) {
 		fprintf(stderr,"(null)\n");
 		return;
 	}
-	fd = firedns_getname6(addr6);
+	fd = firedns_getname6(state, addr6);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -176,11 +188,13 @@ void do_firedns_getname6(char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	fprintf(stderr,"getting result: %s\n",m);
 }
 
-void do_firedns_aton6(char * string) {
+void do_firedns_aton6(firedns_state *state, char * string) {
+	(void) state;
 	struct in6_addr buf6;
 	struct in6_addr *inaddr6;
 
@@ -208,7 +222,13 @@ void do_firedns_aton6(char * string) {
 				inaddr6->s6_addr[15]);
 }
 
-void do_firedns_dnsbl_lookup(char * ip, char * string) {
+#if 1
+#warning "firedns_dnsbl_lookup_txt() not ported yet"
+void do_firedns_dnsbl_lookup(firedns_state *state, char * ip, char * string) {
+	(void) state, (void) ip, (void) string;
+}
+#else
+void do_firedns_dnsbl_lookup(firedns_state *state, char * ip, char * string) {
 	int fd;
 	fd_set s;
 	int n;
@@ -220,7 +240,7 @@ void do_firedns_dnsbl_lookup(char * ip, char * string) {
 	i = firedns_aton4(ip, &buf4);
 
 	fprintf(stderr,"taking firedns_dnsbl_lookup(%s,%s): ",ip,string);
-	fd = firedns_dnsbl_lookup_txt(i,string);
+	fd = firedns_dnsbl_lookup_txt(state, i,string);
 	fprintf(stderr,"%d\n",fd);
 	if (fd == -1)
 		return;
@@ -229,58 +249,63 @@ void do_firedns_dnsbl_lookup(char * ip, char * string) {
 	FD_ZERO(&s);
 	FD_SET(fd,&s);
 	n = select(fd + 1,&s,NULL,NULL,&tv);
-	m = firedns_getresult(fd);
+	(void) n;
+	m = firedns_getresult(state, fd);
 	fprintf(stderr,"getting result: %s\n",m);
 }
-
+#endif
 
 int main() {
-	do_firedns_aton4("1.2.3.4");
-	do_firedns_aton4("101.102.103.104");
-	do_firedns_aton4("bah");
-	do_firedns_aton4("1.2.3.400");
-	do_firedns_aton4("206.152.182.152");
-	do_firedns_aton4("206.152.182.152)");
-	do_firedns_aton4("ack started...");
+	firedns_state state, *s = &state;
+        firedns_init(s);
+        firedns_add_servers_from_resolve_conf(s);
 
-	do_firedns_aton6("::");
-	do_firedns_aton6("3ffe:b80:346:1:204:5aff:fece:7852");
-	do_firedns_aton6("fe80::204:5aff:fece:7852");
-	do_firedns_aton6("bah");
+	do_firedns_aton4(s, "1.2.3.4");
+	do_firedns_aton4(s, "101.102.103.104");
+	do_firedns_aton4(s, "bah");
+	do_firedns_aton4(s, "1.2.3.400");
+	do_firedns_aton4(s, "206.152.182.152");
+	do_firedns_aton4(s, "206.152.182.152)");
+	do_firedns_aton4(s, "ack started...");
 
-	do_firedns_getip4("host.taconic.net");
-	do_firedns_getip4("celery.n.ml.org");
-	do_firedns_getip4("incandescent.mp3revolution.net");
-	do_firedns_getip4("dharr.stu.rpi.edu");
-	do_firedns_getip4("ftp.us.kernel.org");
-	do_firedns_getip4("cool.dk");
+	do_firedns_aton6(s, "::");
+	do_firedns_aton6(s, "3ffe:b80:346:1:204:5aff:fece:7852");
+	do_firedns_aton6(s, "fe80::204:5aff:fece:7852");
+	do_firedns_aton6(s, "bah");
 
-	do_firedns_getip6("ftp.stealth.net");
-	do_firedns_getip6("www.ipv6.org");
-	do_firedns_getip6("z.ip6.int");
+	do_firedns_getip4(s, "host.taconic.net");
+	do_firedns_getip4(s, "celery.n.ml.org");
+	do_firedns_getip4(s, "incandescent.mp3revolution.net");
+	do_firedns_getip4(s, "dharr.stu.rpi.edu");
+	do_firedns_getip4(s, "ftp.us.kernel.org");
+	do_firedns_getip4(s, "cool.dk");
 
-	do_firedns_gettxt("2.0.0.127.inputs.orbz.org");
-	do_firedns_gettxt("2.0.0.127.outputs.orbz.org");
-	do_firedns_gettxt("2.0.0.127.bl.spamcop.net");
-	do_firedns_gettxt("2.0.0.127.relays.ordb.org");
+	do_firedns_getip6(s, "ftp.stealth.net");
+	do_firedns_getip6(s, "www.ipv6.org");
+	do_firedns_getip6(s, "z.ip6.int");
 
-	do_firedns_getmx("spamcop.net");
-	do_firedns_getmx("penguinhosting.net");
-	do_firedns_getmx("taconic.net");
-	do_firedns_getmx("microsoft.com");
-	do_firedns_getmx("email.si");
-	do_firedns_getmx("cool.dk");
+	do_firedns_gettxt(s, "2.0.0.127.inputs.orbz.org");
+	do_firedns_gettxt(s, "2.0.0.127.outputs.orbz.org");
+	do_firedns_gettxt(s, "2.0.0.127.bl.spamcop.net");
+	do_firedns_gettxt(s, "2.0.0.127.relays.ordb.org");
 
-	do_firedns_getname4("205.231.144.10");
-	do_firedns_getname4("208.171.237.190");
-	do_firedns_getname4("64.28.67.150");
-	do_firedns_getname4("64.90.162.91");
+	do_firedns_getmx(s, "spamcop.net");
+	do_firedns_getmx(s, "penguinhosting.net");
+	do_firedns_getmx(s, "taconic.net");
+	do_firedns_getmx(s, "microsoft.com");
+	do_firedns_getmx(s, "email.si");
+	do_firedns_getmx(s, "cool.dk");
 
-	do_firedns_getname6("3FFE:0:1:0:0:0:C620:242");
-	do_firedns_getname6("2001:660:1180:1:192:134:0:49");
-	do_firedns_getname6("3FFE:50E:0:0:0:0:0:1");
+	do_firedns_getname4(s, "205.231.144.10");
+	do_firedns_getname4(s, "208.171.237.190");
+	do_firedns_getname4(s,"64.28.67.150");
+	do_firedns_getname4(s, "64.90.162.91");
 
-	do_firedns_dnsbl_lookup("127.0.0.2","list.dsbl.org");
+	do_firedns_getname6(s, "3FFE:0:1:0:0:0:C620:242");
+	do_firedns_getname6(s, "2001:660:1180:1:192:134:0:49");
+	do_firedns_getname6(s, "3FFE:50E:0:0:0:0:0:1");
+
+	do_firedns_dnsbl_lookup(s, "127.0.0.2","list.dsbl.org");
 
 	return 0;
 }

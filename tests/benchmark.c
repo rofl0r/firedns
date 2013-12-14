@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200112L
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <netdb.h>
@@ -6,7 +8,7 @@
 #include <arpa/inet.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include "../include/firemake.h"
+#include <netdb.h>
 #include "../include/firedns.h"
 
 #define TESTS 10000
@@ -42,11 +44,14 @@ double end_time() {
 int main() {
 	int i;
 	double libc, fire;
+	struct firedns_state state, *s = &state;
+	firedns_init(s);
+	firedns_add_servers_from_resolve_conf(s);
 
 	printf("Testing %d firedns_resolveip4list(\"%s\"):\n",TESTS,TEST_HOST);
 	start_time();
 	for (i = 0; i < TESTS; i++)
-		firedns_resolveip4list(TEST_HOST);
+		firedns_resolveip4list(s, TEST_HOST);
 	fire = end_time();
 
 	printf("Testing %d gethostbyname(\"%s\"):\n",TESTS,TEST_HOST);
