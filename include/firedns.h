@@ -56,15 +56,13 @@ typedef struct firedns_state {
 	struct s_connection *connection_head;
 	struct s_connection connections[FDNS_MAX];
 	char conn_used[FDNS_MAX];
-	struct in_addr servers4[FDNS_MAX]; 
-	#ifdef HAVE_IPV6
-	struct in6_addr servers6[FDNS_MAX];
-	#endif
+	struct in_addr servers4[FDNS_MAX];
 	int wantclose;
 	int lastcreate;
 	int i4;
 	#ifdef HAVE_IPV6
 	int i6;
+	struct in6_addr servers6[FDNS_MAX];
 	#endif
 } firedns_state;
 
