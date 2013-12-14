@@ -39,13 +39,13 @@ struct in6_addr {
 
 #define FDNS_MAX              8
 
-struct s_connection { 
-	struct s_connection *next; 
-	unsigned char id[2]; 
+struct s_connection {
+	struct s_connection *next;
+	unsigned char id[2];
 	unsigned int dclass;
 	unsigned int type;
 	int want_list;
-	int fd; 
+	int fd;
 #ifdef HAVE_IPV6
 	int v6;
 #endif
@@ -60,10 +60,10 @@ typedef struct firedns_state {
 	int wantclose;
 	int lastcreate;
 	int i4;
-	#ifdef HAVE_IPV6
+#ifdef HAVE_IPV6
 	int i6;
 	struct in6_addr servers6[FDNS_MAX];
-	#endif
+#endif
 } firedns_state;
 
 #define FIREDNS_MX_SMTP 0
