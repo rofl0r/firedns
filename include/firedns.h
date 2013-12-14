@@ -51,7 +51,7 @@ struct s_connection {
 #endif
 };
 
-typedef struct {
+typedef struct firedns_state {
 	char resultbuf[1024];
 	struct s_connection *connection_head;
 	struct s_connection connections[FDNS_MAX];
