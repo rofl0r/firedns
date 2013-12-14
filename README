@@ -37,7 +37,21 @@ when to use it ?
 - if you need additional functionality such as MX records,
 ...
 
+compilation:
+there are 2 ways to build firedns,
+- using GNU make
+  just type "make" to compile and "make prefix=/usr/local DESTDIR=test install"
+  to install.
+  if you want to add custom CFLAGS, put them into a file called config.mak
+  for example:
+  CFLAGS += -DUSE_LIBULZ
+  LDFLAGS = -static -lulz
+- using RcB ( https://github.com/rofl0r/rcb )
+  the code has the necessary RcB tags so RcB finds all required TUs automatically
+  when pointing it at the main.c file.
 
+
+contact:
 Quote from original author:
 If you have questions or comments, you can reach me at
 ian@penguinhosting.net.
