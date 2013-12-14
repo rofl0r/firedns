@@ -31,12 +31,6 @@ extern const int firedns_mx_port[];
 extern const char *firedns_mx_name[];
 #endif
 
-#ifndef AF_INET6
-struct in6_addr {
-	unsigned char   s6_addr[16];
-};
-#endif
-
 #define FDNS_MAX              8
 
 struct s_connection {
