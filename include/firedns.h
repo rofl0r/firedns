@@ -43,9 +43,9 @@ struct s_connection {
 	struct s_connection *next;
 	unsigned char id[2];
 	signed char v6;
+	signed char want_list;
 	unsigned int dclass;
 	unsigned int type;
-	int want_list;
 	int fd;
 };
 
