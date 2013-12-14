@@ -5,12 +5,12 @@
 # Do not make changes here.
 #
 
-exec_prefix = /usr/local
-bindir = $(exec_prefix)/bin
+prefix = /usr/local
+exec_prefix = $(prefix)
 
-prefix = /usr/local/
-includedir = $(prefix)/include
+bindir = $(exec_prefix)/bin
 libdir = $(prefix)/lib
+includedir = $(prefix)/include
 
 SRCS := $(sort $(wildcard src/*.c))
 OBJS := $(SRCS:.c=.o)
@@ -23,9 +23,7 @@ TESTOBJS := $(TESTSRCS:.c=.o)
 TESTBINS := $(TESTSRCS:.c=.out)
 
 CFLAGS  = -Os -std=c99 -D_XOPEN_SOURCE=700 -pipe
-#LDFLAGS = -nostdlib -shared -fPIC -Wl,-e,_start -Wl,-Bsymbolic-functions
 INC     = -I./include
-#PIC     = -fPIC -O3
 AR      = $(CROSS_COMPILE)ar
 RANLIB  = $(CROSS_COMPILE)ranlib
 OBJCOPY = $(CROSS_COMPILE)objcopy
@@ -65,13 +63,10 @@ lib/libfiredns.a: $(OBJS)
 	$(AR) rc $@ $(OBJS)
 	$(RANLIB) $@
 
-lib/%.o:
-	cp $< $@
-
 $(DESTDIR)$(bindir)/%: tools/%
 	install -D $< $@
 
 $(DESTDIR)$(prefix)/%: %
 	install -D -m 644 $< $@
 
-.PHONY: all clean install
+.PHONY: all clean install examples tests
