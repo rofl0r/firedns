@@ -2,7 +2,14 @@ FireDNS Library
 ---------------
 (c) 2002 Ian Gulliver, (C) 2011, 2013 rofl0r
 
-GNU Public License, Version 2.
+GNU Public License, Version 2 or 3 at the users choice.
+
+with written permission of 2013-12-17 by Ian Gulliver:
+
+"I hereby grant a public, irrevocable license to use any and all versions of
+ the firedns library under the terms of the GNU Public License version 2 or
+ version 3, at the option of the user."
+
 See GPL for more details.
 
 the code written by rofl0r is dual-licensed under LGPL 2.1+,
