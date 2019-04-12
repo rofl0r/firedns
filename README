@@ -30,7 +30,7 @@ this version here differs from the original in several ways:
 4) can be combined with libulz for even smaller static linkage (optional)
 5) no dynamic allocation to avoid linking in malloc implementations
    (the code in firedns_add_servers_from_resolv_conf(), unless USE_LIBULZ
-    is defined, uses FILE* based stdio functions though which cannot be 
+    is defined, uses FILE* based stdio functions though which cannot be
     implemented without malloc().
     if you want to avoid the dependency, you can add your own servers
     instead of parsing resolv.conf, for example 8.8.8.8)
@@ -53,9 +53,18 @@ there are 2 ways to build firedns,
   for example:
   CFLAGS += -DUSE_LIBULZ
   LDFLAGS = -static -lulz
-- using RcB ( https://github.com/rofl0r/rcb )
-  the code has the necessary RcB tags so RcB finds all required TUs automatically
-  when pointing it at the main.c file.
+
+#  WARNING: currently some stuff of the library (including in the headers) is
+#  only compiled in when -DHAVE_IPV6 is in CFLAGS!
+#  programs linked against firedns require to use the same setting.
+#  if HAVE_IPV6 is used in the one, but not the other, it will crash
+#  (see issue #1).
+#  the library was heavily optimized for minimal linkage (in the order of 1-2KB
+#  added for a program using it), and is designed to be used as source via RcB2.
+
+- using RcB2 ( https://github.com/rofl0r/rcb2 )
+  the code has the necessary RcB2 tags so RcB2 finds all required TUs
+  automatically when pointing it at the main.c file.
 
 
 contact:
