@@ -69,5 +69,3 @@ int firedns_send_requests(firedns_state* self, const struct s_header *  const h,
 struct s_connection *firedns_add_query(firedns_state* self, struct s_header *  const h);
 int firedns_build_query_payload(const char* name, const unsigned short rr, const unsigned short dclass, unsigned char* payload);
 
-//RcB: DEP "*.c"
-
