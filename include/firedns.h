@@ -53,10 +53,8 @@ typedef struct firedns_state {
 	int wantclose;
 	int lastcreate;
 	int i4;
-#ifdef HAVE_IPV6
 	int i6;
 	struct in6_addr servers6[FDNS_MAX];
-#endif
 } firedns_state;
 
 #define FIREDNS_MX_SMTP 0
